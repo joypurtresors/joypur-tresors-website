@@ -899,12 +899,50 @@ section[id]  {
 }
 
 }
-  </style>
+
+/* V3.1: laptop-friendly hero and accurate anchored navigation. */
+@media (min-width: 761px) {
+  .hero-layout { min-height: 530px; }
+  .hero-copy { padding-top: 66px; padding-bottom: 62px; }
+  .hero h1 { font-size: clamp(38px, 4.2vw, 60px); }
+  .hero p { margin-bottom: 24px; }
+  .hero-trust { margin-top: 24px; }
+}
+@media (min-width: 761px) and (max-height: 800px) {
+  .hero-layout { min-height: 475px; }
+  .hero-copy { padding-top: 48px; padding-bottom: 42px; }
+  .hero h1 { font-size: clamp(36px, 3.9vw, 54px); }
+}
+@media (max-width: 760px) {
+  .hero-copy { padding-top: 58px; padding-bottom: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+  
+/* V3.2: compact, laptop-friendly EMI tool */
+@media (min-width: 761px) {
+  #calculator.section { padding: 48px 0 56px; }
+  #calculator .section-head { margin-bottom: 22px; }
+  #calculator .section-head h2 { font-size: clamp(25px, 2.5vw, 36px); line-height: 1.18; }
+  #calculator .section-head h2 br { display: none; }
+  #calculator .section-head p { margin-top: 9px; max-width: 760px; }
+  #calculator .calc-panel, #calculator .result-panel { padding: 23px 27px; }
+  #calculator .calc-panel input[type=range] { margin-bottom: 19px; }
+  #calculator .emi-value { margin: 8px 0 13px; font-size: clamp(30px, 3vw, 43px); }
+  #calculator .result-line { padding: 10px 0; }
+  #calculator .bar { margin-top: 17px; }
+  #calculator .calc-grid { gap: 18px; }
+}
+@media (max-width: 760px) {
+  #calculator.section { padding: 55px 0; }
+  #calculator .section-head { margin-bottom: 23px; }
+  #calculator .calc-panel, #calculator .result-panel { padding: 23px; }
+  #calculator .calc-panel input[type=range] { margin-bottom: 21px; }
+}
+</style>
  </head>
  <body>
-  <div class="preview-ribbon">
-   DESIGN V3 PREVIEW · Review locally before replacing your live website
-  </div>
   <div class="topbar">
    <div class="container">
     <span>
@@ -1596,5 +1634,24 @@ document.getElementById('principalBar').style.width=(100*p/total).toFixed(2)+'%'
 updateEmi();
 document.getElementById('year').textContent=new Date().getFullYear();
   </script>
- </body>
+ 
+<script>
+/* Align the visible section heading below the sticky navigation. */
+(() => {
+  const links = document.querySelectorAll('a[href^="#"]');
+  links.forEach(link => link.addEventListener('click', event => {
+    const id = link.getAttribute('href').slice(1);
+    if (!id) return;
+    const section = document.getElementById(id);
+    if (!section) return;
+    event.preventDefault();
+    const navHeight = document.querySelector('.nav')?.getBoundingClientRect().height || 86;
+    const heading = id === 'calculator' ? (section.querySelector('.calc-grid') || section) : (section.querySelector('.section-head, h2') || section);
+    const top = id === 'home' ? 0 : window.scrollY + heading.getBoundingClientRect().top - navHeight - (id === 'calculator' ? 12 : 22);
+    window.scrollTo({top: Math.max(0, top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+    history.replaceState(null, '', '#' + id);
+  }));
+})();
+</script>
+</body>
 </html>
