@@ -1711,6 +1711,19 @@ document.getElementById('year').textContent=new Date().getFullYear();
   const heading = hero.querySelector('h1');
   const description = hero.querySelector('p');
   const endpoint = '/api/public-content';
+  const serviceKeys = ['home_loans', 'business_loans', 'mortgage_loans', 'od_cc', 'bg_lrd', 'personal_auto'];
+  const serviceCards = [...document.querySelectorAll('#services .services-grid .service-card')];
+  function renderServices(values) {
+    if (!values || typeof values !== 'object' || Array.isArray(values)) return;
+    serviceKeys.forEach((key, index) => {
+      const card = serviceCards[index];
+      if (!card) return;
+      const title = card.querySelector('.body h3');
+      const description = card.querySelector('.body p');
+      if (title && textValue(values[key + '_title'])) title.textContent = textValue(values[key + '_title']);
+      if (description && textValue(values[key + '_description'])) description.textContent = textValue(values[key + '_description']);
+    });
+  }
   const textValue = value => typeof value === 'string' ? value.trim() : '';
   function getHeroValues(data) {
     let entries = null;
@@ -1755,10 +1768,12 @@ document.getElementById('year').textContent=new Date().getFullYear();
       const data = await response.json();
       if (data?.success === false) return;
       const values = getHeroValues(data);
-      if (!values) return;
-      if (textValue(values.eyebrow)) eyebrow.textContent = textValue(values.eyebrow);
-      if (textValue(values.heading)) renderHeading(values.heading);
-      if (textValue(values.description)) description.textContent = textValue(values.description);
+      if (values) {
+        if (textValue(values.eyebrow)) eyebrow.textContent = textValue(values.eyebrow);
+        if (textValue(values.heading)) renderHeading(values.heading);
+        if (textValue(values.description)) description.textContent = textValue(values.description);
+      }
+      renderServices(data?.services || data?.content?.services);
     } catch (error) {
       // Keep the server-rendered hero unchanged when the public API is unavailable.
       console.warn('Public content unavailable; displaying original homepage copy.');
