@@ -1727,7 +1727,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
       }
       return values;
     }
-    const obj = data?.hero || data?.content?.hero || data?.data?.hero;
+    const obj = data?.hero || data?.content?.hero || data?.content || data?.data?.hero;
     return obj && typeof obj === 'object' && !Array.isArray(obj) ? obj : null;
   }
   function renderHeading(value) {
