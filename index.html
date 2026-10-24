@@ -940,16 +940,6 @@ section[id]  {
   #calculator .calc-panel, #calculator .result-panel { padding: 23px; }
   #calculator .calc-panel input[type=range] { margin-bottom: 21px; }
 }
-
-/* Latest Updates: isolated styles, existing sections unchanged. */
-.latest-updates { background: var(--cream); }
-.latest-updates-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
-.latest-update-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:28px; box-shadow:0 10px 30px rgba(23,21,20,.045); min-width:0; }
-.latest-update-card small { display:block; color:var(--orange); font-weight:800; font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; }
-.latest-update-card h3 { font-size:21px; line-height:1.35; overflow-wrap:anywhere; }
-.latest-update-card p { color:var(--muted); line-height:1.75; overflow-wrap:anywhere; white-space:pre-line; }
-.latest-update-card time { display:block; color:var(--muted); font-size:12px; margin-top:18px; }
-@media(max-width:760px) { .latest-updates-grid { grid-template-columns:1fr; } }
 </style>
  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
@@ -1404,16 +1394,6 @@ section[id]  {
      </div>
     </div>
    </section>
-   <section class="section latest-updates" id="latest-updates" hidden aria-labelledby="latest-updates-heading">
-    <div class="container">
-     <div class="section-head">
-      <span class="eyebrow">LATEST UPDATES</span>
-      <h2 id="latest-updates-heading">News, loan updates &amp; announcements.</h2>
-      <p>Recent updates from Joypur Tresors Financial Solutions.</p>
-     </div>
-     <div class="latest-updates-grid" id="latest-updates-grid"></div>
-    </div>
-   </section>
    <section class="section promise" id="approach">
     <div class="container">
      <div class="section-head">
@@ -1800,59 +1780,6 @@ document.getElementById('year').textContent=new Date().getFullYear();
     }
   }
   loadPublicContent();
-})();
-</script>
-<script>
-/* Latest Updates: read-only public enhancement; empty/error state stays hidden. */
-(() => {
-  'use strict';
-  const section = document.getElementById('latest-updates');
-  const grid = document.getElementById('latest-updates-grid');
-  if (!section || !grid) return;
-  const text = value => typeof value === 'string' ? value.trim() : '';
-  async function loadLatestUpdates() {
-    try {
-      const response = await fetch('/api/public-updates', {
-        headers: { Accept: 'application/json' }, cache: 'no-store'
-      });
-      if (!response.ok || !(response.headers.get('content-type') || '').includes('application/json')) return;
-      const data = await response.json();
-      if (!data || !data.success || !Array.isArray(data.updates)) return;
-      const cards = [];
-      for (const item of data.updates.slice(0, 3)) {
-        if (!item || !text(item.title)) continue;
-        const card = document.createElement('article');
-        card.className = 'latest-update-card';
-        const category = document.createElement('small');
-        category.textContent = text(item.category).replace(/[_-]/g, ' ') || 'Update';
-        const title = document.createElement('h3');
-        title.textContent = text(item.title);
-        card.append(category, title);
-        if (text(item.summary)) {
-          const summary = document.createElement('p');
-          summary.textContent = text(item.summary);
-          card.append(summary);
-        }
-        if (text(item.published_at)) {
-          const parsed = new Date(text(item.published_at).replace(' ', 'T') + (/[zZ]|[+-]\d\d:\d\d$/.test(text(item.published_at)) ? '' : 'Z'));
-          if (!Number.isNaN(parsed.getTime())) {
-            const date = document.createElement('time');
-            date.dateTime = parsed.toISOString();
-            date.textContent = parsed.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-            card.append(date);
-          }
-        }
-        cards.push(card);
-      }
-      if (cards.length) {
-        grid.replaceChildren(...cards);
-        section.hidden = false;
-      }
-    } catch (error) {
-      // The rest of the website remains fully functional.
-    }
-  }
-  loadLatestUpdates();
 })();
 </script>
 </body>
