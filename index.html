@@ -1,3 +1,4 @@
+```
 <!DOCTYPE html>
 
 <html lang="en">
@@ -1091,7 +1092,17 @@ header.nav .brand img { display:block; }
 }
 </style>
 <script async="" defer="" src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
-</head>
+<style>
+/* Consolidated navigation and service shortcuts */
+.ticker .container { flex-wrap:wrap; }
+.ticker .ticker-link { display:inline-flex; align-items:center; min-height:42px; padding:8px 4px; color:#544941; font:800 13px Manrope,Arial,sans-serif; text-decoration:none; border-bottom:2px solid transparent; transition:color .2s,border-color .2s; }
+.ticker .ticker-link:first-child { font-size:12px; letter-spacing:.1em; color:#8a7b6d; }
+.ticker .ticker-link:hover,.ticker .ticker-link:focus-visible { color:var(--orange); border-bottom-color:var(--orange); }
+.navlinks a[aria-current="location"],.mobile-nav a[aria-current="location"] { color:var(--gold); }
+.navlinks a[aria-current="location"] { box-shadow:inset 0 -2px var(--orange); }
+.service-card[id] { scroll-margin-top:112px; }
+@media(max-width:760px) { .ticker .container { justify-content:flex-start; gap:8px 18px; } .ticker .ticker-link { font-size:11px; } .service-card[id] { scroll-margin-top:90px; } }
+</style></head>
 <body>
 <div class="topbar">
 <div class="container">
@@ -1112,25 +1123,13 @@ header.nav .brand img { display:block; }
 <img alt="Joypur Tresors Financial Solutions" src="assets/joypur-tresors-logo-approved.png"/>
 </a>
 <nav aria-label="Main navigation" class="navlinks">
-<a href="#home">
-      Home
-     </a>
-<a href="#services">
-      Solutions
-     </a>
-<a href="#about">
-      About
-     </a>
-<a href="#calculator">
-      EMI Tools
-     </a>
-<a href="#insights">
-      Insights
-     </a>
-<a href="#contact">
-      Contact
-     </a>
-</nav>
+
+
+
+
+
+
+<a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="#contact">Contact</a></nav>
 <a class="btn btn-primary" href="#contact">
      Get in touch ↗
     </a>
@@ -1139,25 +1138,13 @@ header.nav .brand img { display:block; }
     </button>
 </div>
 <nav aria-label="Mobile navigation" class="mobile-nav" id="mobileNav">
-<a href="#home">
-     Home
-    </a>
-<a href="#services">
-     Solutions
-    </a>
-<a href="#about">
-     About
-    </a>
-<a href="#calculator">
-     EMI Tools
-    </a>
-<a href="#insights">
-     Insights
-    </a>
-<a href="#contact">
-     Contact
-    </a>
-</nav>
+
+
+
+
+
+
+<a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="#contact">Contact</a></nav>
 </header>
 <main>
 <section class="hero" id="home">
@@ -1212,23 +1199,7 @@ header.nav .brand img { display:block; }
 </div>
 </section>
 <div class="ticker">
-<div class="container">
-<span>
-      EXPLORE WHAT'S POSSIBLE
-     </span>
-<strong>
-      HOME LOANS
-     </strong>
-<strong>
-      BUSINESS FINANCE
-     </strong>
-<strong>
-      MORTGAGE
-     </strong>
-<strong>
-      WORKING CAPITAL
-     </strong>
-</div>
+<div class="container"><a class="ticker-link" href="#services">EXPLORE WHAT'S POSSIBLE</a><a class="ticker-link" href="#home-loans">HOME LOANS</a><a class="ticker-link" href="#business-loans">BUSINESS FINANCE</a><a class="ticker-link" href="#mortgage-loans">MORTGAGE</a><a class="ticker-link" href="#working-capital">WORKING CAPITAL</a></div>
 </div>
 <section class="section about" id="about">
 <div class="container about-grid">
@@ -1283,7 +1254,7 @@ header.nav .brand img { display:block; }
       </p>
 </div>
 <div class="services-grid">
-<article class="service-card">
+<article class="service-card" id="home-loans">
 <img alt="Modern residential home" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
@@ -1295,12 +1266,12 @@ header.nav .brand img { display:block; }
 <p>
          Explore options for buying, building or refinancing the home you envision.
         </p>
-<a href="#contact">
+<a aria-label="Discuss Home Loans requirement" href="#contact">
          Discuss your requirement ↗
         </a>
 </div>
 </article>
-<article class="service-card">
+<article class="service-card" id="business-loans">
 <img alt="Professional office workspace" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
@@ -1312,12 +1283,12 @@ header.nav .brand img { display:block; }
 <p>
          Financing guidance for expansion, operations and new opportunities.
         </p>
-<a href="#contact">
+<a aria-label="Discuss Business Loans requirement" href="#contact">
          Discuss your requirement ↗
         </a>
 </div>
 </article>
-<article class="service-card">
+<article class="service-card" id="mortgage-loans">
 <img alt="Property and mortgage paperwork" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
@@ -1329,12 +1300,12 @@ header.nav .brand img { display:block; }
 <p>
          Understand financing possibilities against eligible property assets.
         </p>
-<a href="#contact">
+<a aria-label="Discuss Mortgage Loans requirement" href="#contact">
          Discuss your requirement ↗
         </a>
 </div>
 </article>
-<article class="service-card">
+<article class="service-card" id="working-capital">
 <img alt="Contemporary corporate interior" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
@@ -1346,12 +1317,12 @@ header.nav .brand img { display:block; }
 <p>
          Explore overdraft and cash credit options for business cash-flow needs.
         </p>
-<a href="#contact">
+<a aria-label="Discuss OD / CC Facilities requirement" href="#contact">
          Discuss your requirement ↗
         </a>
 </div>
 </article>
-<article class="service-card">
+<article class="service-card" id="bg-lrd">
 <img alt="Financial documents and calculator" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
@@ -1363,12 +1334,12 @@ header.nav .brand img { display:block; }
 <p>
          Guidance on bank guarantees and lease rental discounting solutions.
         </p>
-<a href="#contact">
+<a aria-label="Discuss BG &amp; LRD requirement" href="#contact">
          Discuss your requirement ↗
         </a>
 </div>
 </article>
-<article class="service-card">
+<article class="service-card" id="personal-auto">
 <img alt="Modern car" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
@@ -1380,7 +1351,7 @@ header.nav .brand img { display:block; }
 <p>
          Understand suitable borrowing options for personal needs and mobility.
         </p>
-<a href="#contact">
+<a aria-label="Discuss Personal &amp; Auto Loans requirement" href="#contact">
          Discuss your requirement ↗
         </a>
 </div>
@@ -1388,7 +1359,6 @@ header.nav .brand img { display:block; }
 </div>
 </div>
 </section>
-
 <section class="section calc" id="calculator">
 <div class="container">
 <div class="section-head">
@@ -1798,24 +1768,45 @@ document.getElementById('principalBar').style.width=(100*p/total).toFixed(2)+'%'
 updateEmi();
 document.getElementById('year').textContent=new Date().getFullYear();
   </script>
-<script>
-/* Align the visible section heading below the sticky navigation. */
+<script>/* Consistent accessible anchor navigation and active section. */
 (() => {
-  const links = document.querySelectorAll('a[href^="#"]');
-  links.forEach(link => link.addEventListener('click', event => {
+  const nav = document.querySelector('header.nav');
+  const menuLinks = [...document.querySelectorAll('.navlinks a[href^="#"], .mobile-nav a[href^="#"]')];
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function navigate(id, smooth = true) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const offset = (nav?.getBoundingClientRect().height || 86) + 20;
+    const top = id === 'home' ? 0 : window.scrollY + target.getBoundingClientRect().top - offset;
+    window.scrollTo({top:Math.max(0,top),behavior:smooth && !reduced() ? 'smooth' : 'auto'});
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
     const id = link.getAttribute('href').slice(1);
-    if (!id) return;
-    const section = document.getElementById(id);
-    if (!section) return;
+    if (!id || !document.getElementById(id)) return;
     event.preventDefault();
-    const navHeight = document.querySelector('.nav')?.getBoundingClientRect().height || 86;
-    const heading = id === 'calculator' ? (section.querySelector('.calc-grid') || section) : (section.querySelector('.section-head, h2') || section);
-    const top = id === 'home' ? 0 : window.scrollY + heading.getBoundingClientRect().top - navHeight - (id === 'calculator' ? 12 : 22);
-    window.scrollTo({top: Math.max(0, top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+    navigate(id);
     history.replaceState(null, '', '#' + id);
   }));
-})();
-</script>
+  function updateActive() {
+    const offset = (nav?.getBoundingClientRect().height || 86) + 90;
+    let active = 'home';
+    for (const id of ['home','about','services','calculator','insights','contact']) {
+      const section = document.getElementById(id);
+      if (section && section.getBoundingClientRect().top <= offset) active = id;
+    }
+    menuLinks.forEach(link => {
+      if (link.getAttribute('href') === '#' + active) link.setAttribute('aria-current','location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll',updateActive,{passive:true});
+  window.addEventListener('resize',updateActive);
+  window.addEventListener('load',() => {
+    if (location.hash.length > 1) navigate(decodeURIComponent(location.hash.slice(1)),false);
+    updateActive();
+  });
+  updateActive();
+})();</script>
 <script>
 /* Secure in-page enquiry submission. The API key stays in Cloudflare Worker secrets. */
 (() => {
@@ -1998,3 +1989,4 @@ document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
+```
