@@ -950,6 +950,67 @@ section[id]  {
 .latest-update-card p { color:var(--muted); line-height:1.75; overflow-wrap:anywhere; white-space:pre-line; }
 .latest-update-card time { display:block; color:var(--muted); font-size:12px; margin-top:18px; }
 @media(max-width:760px) { .latest-updates-grid { grid-template-columns:1fr; } }
+   
+/* Newsletter Phase 4A — visual preview only */
+.newsletter-preview {
+  background: #fbf5ec;
+}
+
+.newsletter-preview .newsletter-panel {
+  background: #fff;
+  border: 1px solid #e9ded0;
+  border-radius: 20px;
+  padding: clamp(24px, 4vw, 48px);
+  max-width: 860px;
+  margin: auto;
+}
+
+.newsletter-preview .newsletter-panel h2 {
+  margin: 10px 0;
+}
+
+.newsletter-preview .newsletter-panel p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.newsletter-preview .newsletter-fields {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.newsletter-preview input[type="email"] {
+  flex: 1 1 260px;
+  padding: 14px;
+  border: 1px solid #cfc6bb;
+  border-radius: 9px;
+  font: inherit;
+  min-width: 0;
+}
+
+.newsletter-preview .newsletter-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.newsletter-preview .newsletter-consent input {
+  margin-top: 5px;
+}
+
+.newsletter-preview button[disabled] {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.newsletter-preview .newsletter-notice {
+  font-size: 13px;
+}
+
 </style>
  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
@@ -1571,6 +1632,26 @@ section[id]  {
      </form>
     </div>
    </section>
+   
+<!-- Newsletter Phase 4A: visual preview only; no email collection. -->
+<section class="section newsletter-preview" id="newsletter" aria-labelledby="newsletter-heading">
+  <div class="container">
+    <div class="newsletter-panel">
+      <span class="eyebrow">JOYPUR NEWSLETTER</span>
+      <h2 id="newsletter-heading">Stay Financially Informed</h2>
+      <p>Get useful updates about loans, financial services and important announcements from Joypur Tresors.</p>
+      <div class="newsletter-fields">
+        <input type="email" id="newsletter-email-preview" placeholder="Enter your email address" aria-label="Your email address" disabled autocomplete="off">
+      </div>
+      <label class="newsletter-consent">
+        <input type="checkbox" disabled>
+        <span>I agree to receive email updates and understand that I can unsubscribe anytime.</span>
+      </label>
+      <button type="button" class="btn btn-primary" disabled aria-disabled="true">Subscribe ↗</button>
+      <p class="newsletter-notice" role="status">Preview design only — subscription is not yet active. No email address is collected or sent.</p>
+    </div>
+  </div>
+</section>
   </main>
   <footer class="footer">
    <div class="container">
