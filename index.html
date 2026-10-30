@@ -1,17 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width,initial-scale=1" name="viewport"/>
-  <meta content="#171514" name="theme-color"/>
-  <meta content="Joypur Tresors Financial Solutions — considered finance solutions for homes, businesses and what comes next." name="description"/>
-  <title>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#171514" name="theme-color"/>
+<meta content="Joypur Tresors Financial Solutions — considered finance solutions for homes, businesses and what comes next." name="description"/>
+<title>
    Joypur Tresors | Financial Solutions
   </title>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-  <style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
    :root {
   --ink:#171514;
   --gold:#F5A33B;
@@ -120,16 +121,6 @@ header.nav .brand img {
   height: auto;
   object-fit: contain;
 }
-.brand strong {
-  display:block;
-  font:800 16px Manrope;
-  letter-spacing:.015em}
-.brand small {
-  display:block;
-  font-size:9px;
-  letter-spacing:.25em;
-  color:#d2b59a;
-  margin-top:4px}
 .navlinks {
   display:flex;
   align-items:center;
@@ -652,8 +643,6 @@ header.nav .brand img {
 }
  .brand strong {
   font-size:13px}
-.brand small {
-  font-size:8px}
 .navlinks,.nav-inner>.btn {
   display:none}
 .menu-btn {
@@ -1044,698 +1033,747 @@ section[id]  {
   font-size: 13px;
 }
 
+
+/* Joypur corporate polish — single final override layer (preview only). */
+:root { --focus-ring:#e76500; }
+html { scroll-padding-top:100px; }
+body { overflow-x:clip; }
+header.nav .brand, .footer .brand { flex:0 0 auto; box-shadow:none; }
+header.nav .brand {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:6px 10px; background:#fff; border-radius:12px;
+  max-width:calc(100vw - 115px);
+}
+header.nav .brand img { width:100px; height:auto; max-width:100%; object-fit:contain; }
+.footer .brand { display:inline-flex; padding:12px 16px; border-radius:16px; background:#fff; margin:0 0 20px; }
+.footer .brand img { width:142px; height:auto; max-width:100%; object-fit:contain; }
+.nav-inner { gap:16px; }
+.navlinks { gap:clamp(12px,1.6vw,26px); }
+.newsletter-preview { background:linear-gradient(150deg,#fffaf3 0%,#f8efe4 100%); }
+.newsletter-preview .newsletter-panel { border-color:var(--line); box-shadow:0 18px 52px rgba(23,21,20,.055); }
+.newsletter-preview input[type=email] { background:#fff; border:1.5px solid #d5b79a; border-radius:10px; min-height:52px; color:var(--ink); }
+.newsletter-preview input[type=email]::placeholder { color:#756b61; opacity:1; }
+.newsletter-preview input[type=email]:disabled { opacity:1; -webkit-text-fill-color:var(--ink); cursor:not-allowed; }
+.newsletter-preview .newsletter-consent { color:#51473e; line-height:1.6; }
+.newsletter-preview .newsletter-notice { margin:14px 0 0; color:#62594f; line-height:1.6; }
+:where(a,button,input,select):focus-visible { outline:3px solid var(--focus-ring); outline-offset:3px; }
+@media (max-width:1000px) and (min-width:761px) {
+  header.nav .brand img { width:88px; }
+  .navlinks { gap:10px; }
+  .navlinks a { font-size:11px; }
+  .nav-inner>.btn { padding:12px 14px; }
+}
+@media (max-width:760px) {
+  .nav-inner { min-height:76px; }
+  header.nav .brand { padding:5px 8px; border-radius:11px; }
+  header.nav .brand img { width:82px; height:auto; }
+  .footer .brand img { width:136px; }
+  .newsletter-preview .newsletter-panel { padding:26px 22px; }
+  .newsletter-preview .newsletter-fields { display:block; }
+  .newsletter-preview input[type=email] { display:block; width:100%; }
+}
+@media (max-width:380px) {
+  header.nav .brand img { width:76px; }
+  .footer .brand img { width:128px; }
+  .newsletter-preview .newsletter-panel { padding:22px 18px; }
+}
+
+/* Joypur Tresors | consolidated brand refinements — preview integration */
+html { scroll-behavior:smooth; }
+section[id] { scroll-margin-top:86px; }
+header.nav .nav-inner { gap:24px; }
+header.nav .brand { flex-shrink:0; }
+header.nav .brand img { display:block; }
+.footer .brand img { display:block; }
+@media (max-width:760px) {
+  header.nav .nav-inner { gap:12px; }
+  section[id] { scroll-margin-top:72px; }
+}
 </style>
- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script async="" defer="" src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
- <body>
-  <div class="topbar">
-   <div class="container">
-    <span>
+<body>
+<div class="topbar">
+<div class="container">
+<span>
      Thoughtful financial solutions. Personal guidance.
     </span>
-    <span class="desktop">
+<span class="desktop">
      Questions?
      <a href="mailto:joypurtresors@gmail.com">
       joypurtresors@gmail.com
      </a>
-    </span>
-   </div>
-  </div>
-  <header class="nav">
-   <div class="container nav-inner">
-    <a aria-label="Joypur Tresors home" class="brand" href="#home">
-  <img
-    src="assets/joypur-tresors-logo-approved.png"
-    alt="Joypur Tresors Financial Solutions"
-  />
+</span>
+</div>
+</div>
+<header class="nav">
+<div class="container nav-inner">
+<a aria-label="Joypur Tresors home" class="brand" href="#home">
+<img alt="Joypur Tresors Financial Solutions" src="assets/joypur-tresors-logo-approved.png"/>
 </a>
-    <nav aria-label="Main navigation" class="navlinks">
-     <a href="#home">
+<nav aria-label="Main navigation" class="navlinks">
+<a href="#home">
       Home
      </a>
-     <a href="#services">
+<a href="#services">
       Solutions
      </a>
-     <a href="#about">
+<a href="#about">
       About
      </a>
-     <a href="#calculator">
+<a href="#calculator">
       EMI Tools
      </a>
-     <a href="#insights">
+<a href="#insights">
       Insights
      </a>
-     <a href="#contact">
+<a href="#contact">
       Contact
      </a>
-    </nav>
-    <a class="btn btn-primary" href="#contact">
+</nav>
+<a class="btn btn-primary" href="#contact">
      Get in touch ↗
     </a>
-    <button aria-expanded="false" aria-label="Open menu" class="menu-btn" id="menuToggle">
+<button aria-expanded="false" aria-label="Open menu" class="menu-btn" id="menuToggle">
      ☰
     </button>
-   </div>
-   <nav aria-label="Mobile navigation" class="mobile-nav" id="mobileNav">
-    <a href="#home">
+</div>
+<nav aria-label="Mobile navigation" class="mobile-nav" id="mobileNav">
+<a href="#home">
      Home
     </a>
-    <a href="#services">
+<a href="#services">
      Solutions
     </a>
-    <a href="#about">
+<a href="#about">
      About
     </a>
-    <a href="#calculator">
+<a href="#calculator">
      EMI Tools
     </a>
-    <a href="#insights">
+<a href="#insights">
      Insights
     </a>
-    <a href="#contact">
+<a href="#contact">
      Contact
     </a>
-   </nav>
-  </header>
-  <main>
-   <section class="hero" id="home">
-    <div class="container hero-layout">
-     <div class="hero-copy">
-      <span class="eyebrow">
+</nav>
+</header>
+<main>
+<section class="hero" id="home">
+<div class="container hero-layout">
+<div class="hero-copy">
+<span class="eyebrow">
        YOUR FINANCIAL GROWTH PARTNER
       </span>
-      <h1>
+<h1>
        Your ambitions.
        <br/>
-       <em>
+<em>
         Our financial
        </em>
-       <br/>
+<br/>
        expertise.
       </h1>
-      <p>
+<p>
        From a place to call home to a business ready to grow, discover finance solutions with clarity, care and a human touch.
       </p>
-      <div class="hero-actions">
-       <a class="btn btn-primary" href="#services">
+<div class="hero-actions">
+<a class="btn btn-primary" href="#services">
         Explore solutions ↗
        </a>
-       <a class="btn btn-outline" href="#calculator">
+<a class="btn btn-outline" href="#calculator">
         Calculate EMI →
        </a>
-      </div>
-      <div class="hero-trust">
-       <span>
+</div>
+<div class="hero-trust">
+<span>
         Personalised guidance
        </span>
-       <span>
+<span>
         Clear conversations
        </span>
-       <span>
+<span>
         Multiple loan categories
        </span>
-      </div>
-     </div>
-     <div class="hero-visual">
-      <img alt="Contemporary residential architecture" fetchpriority="high" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1400&amp;q=82"/>
-      <div class="hero-float">
-       <small>
+</div>
+</div>
+<div class="hero-visual">
+<img alt="Contemporary residential architecture" fetchpriority="high" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1400&amp;q=82"/>
+<div class="hero-float">
+<small>
         MORE THAN FINANCING
        </small>
-       <strong>
+<strong>
         Confidence for what comes next.
        </strong>
-      </div>
-     </div>
-    </div>
-   </section>
-   <div class="ticker">
-    <div class="container">
-     <span>
+</div>
+</div>
+</div>
+</section>
+<div class="ticker">
+<div class="container">
+<span>
       EXPLORE WHAT'S POSSIBLE
      </span>
-     <strong>
+<strong>
       HOME LOANS
      </strong>
-     <strong>
+<strong>
       BUSINESS FINANCE
      </strong>
-     <strong>
+<strong>
       MORTGAGE
      </strong>
-     <strong>
+<strong>
       WORKING CAPITAL
      </strong>
-    </div>
-   </div>
-   <section class="section services" id="services">
-    <div class="container">
-     <div class="section-head">
-      <span class="eyebrow">
-       OUR SOLUTIONS
-      </span>
-      <h2>
-       Finance designed around your next big move.
-      </h2>
-      <p>
-       Explore financing categories for individuals, professionals and growing enterprises. Eligibility, rates and approval are subject to lender assessment.
-      </p>
-     </div>
-     <div class="services-grid">
-      <article class="service-card">
-       <img alt="Modern residential home" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
-       <div class="body">
-        <span class="num">
-         01 / PERSONAL GOALS
-        </span>
-        <h3>
-         Home Loans
-        </h3>
-        <p>
-         Explore options for buying, building or refinancing the home you envision.
-        </p>
-        <a href="#contact">
-         Discuss your requirement ↗
-        </a>
-       </div>
-      </article>
-      <article class="service-card">
-       <img alt="Professional office workspace" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
-       <div class="body">
-        <span class="num">
-         02 / BUSINESS GROWTH
-        </span>
-        <h3>
-         Business Loans
-        </h3>
-        <p>
-         Financing guidance for expansion, operations and new opportunities.
-        </p>
-        <a href="#contact">
-         Discuss your requirement ↗
-        </a>
-       </div>
-      </article>
-      <article class="service-card">
-       <img alt="Property and mortgage paperwork" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
-       <div class="body">
-        <span class="num">
-         03 / PROPERTY FINANCE
-        </span>
-        <h3>
-         Mortgage Loans
-        </h3>
-        <p>
-         Understand financing possibilities against eligible property assets.
-        </p>
-        <a href="#contact">
-         Discuss your requirement ↗
-        </a>
-       </div>
-      </article>
-      <article class="service-card">
-       <img alt="Contemporary corporate interior" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
-       <div class="body">
-        <span class="num">
-         04 / WORKING CAPITAL
-        </span>
-        <h3>
-         OD / CC Facilities
-        </h3>
-        <p>
-         Explore overdraft and cash credit options for business cash-flow needs.
-        </p>
-        <a href="#contact">
-         Discuss your requirement ↗
-        </a>
-       </div>
-      </article>
-      <article class="service-card">
-       <img alt="Financial documents and calculator" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
-       <div class="body">
-        <span class="num">
-         05 / STRUCTURED FINANCE
-        </span>
-        <h3>
-         BG &amp; LRD
-        </h3>
-        <p>
-         Guidance on bank guarantees and lease rental discounting solutions.
-        </p>
-        <a href="#contact">
-         Discuss your requirement ↗
-        </a>
-       </div>
-      </article>
-      <article class="service-card">
-       <img alt="Modern car" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
-       <div class="body">
-        <span class="num">
-         06 / EVERYDAY MILESTONES
-        </span>
-        <h3>
-         Personal &amp; Auto Loans
-        </h3>
-        <p>
-         Understand suitable borrowing options for personal needs and mobility.
-        </p>
-        <a href="#contact">
-         Discuss your requirement ↗
-        </a>
-       </div>
-      </article>
-     </div>
-    </div>
-   </section>
-   <section class="section about" id="about">
-    <div class="container about-grid">
-     <div class="about-image">
-      <img alt="Bright contemporary office interior" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"/>
-      <div class="about-badge">
-       <strong>
+</div>
+</div>
+<section class="section about" id="about">
+<div class="container about-grid">
+<div class="about-image">
+<img alt="Bright contemporary office interior" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"/>
+<div class="about-badge">
+<strong>
         Clarity first.
        </strong>
-       <span>
+<span>
         Thoughtful finance conversations.
        </span>
-      </div>
-     </div>
-     <div>
-      <span class="eyebrow">
+</div>
+</div>
+<div>
+<span class="eyebrow">
        ABOUT JOYPUR TRESORS
       </span>
-      <h2>
+<h2>
        Good financial decisions start with better conversations.
       </h2>
-      <p>
+<p>
        Joypur Tresors Financial Solutions is focused on helping individuals and businesses explore financing choices with clarity. We aim to make complex borrowing decisions easier to understand through practical guidance and personal attention.
       </p>
-      <ul class="checklist">
-       <li>
+<ul class="checklist">
+<li>
         Understand your goals and financing needs
        </li>
-       <li>
+<li>
         Explore relevant loan categories and considerations
        </li>
-       <li>
+<li>
         Take the next step with better information
        </li>
-      </ul>
-      <a class="btn btn-dark" href="#contact">
+</ul>
+<a class="btn btn-dark" href="#contact">
        Start a conversation ↗
       </a>
-     </div>
-    </div>
-   </section>
-   <section class="section calc" id="calculator">
-    <div class="container">
-     <div class="section-head">
-      <span class="eyebrow">
+</div>
+</div>
+</section><section class="section services" id="services">
+<div class="container">
+<div class="section-head">
+<span class="eyebrow">
+       OUR SOLUTIONS
+      </span>
+<h2>
+       Finance designed around your next big move.
+      </h2>
+<p>
+       Explore financing categories for individuals, professionals and growing enterprises. Eligibility, rates and approval are subject to lender assessment.
+      </p>
+</div>
+<div class="services-grid">
+<article class="service-card">
+<img alt="Modern residential home" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<div class="body">
+<span class="num">
+         01 / PERSONAL GOALS
+        </span>
+<h3>
+         Home Loans
+        </h3>
+<p>
+         Explore options for buying, building or refinancing the home you envision.
+        </p>
+<a href="#contact">
+         Discuss your requirement ↗
+        </a>
+</div>
+</article>
+<article class="service-card">
+<img alt="Professional office workspace" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<div class="body">
+<span class="num">
+         02 / BUSINESS GROWTH
+        </span>
+<h3>
+         Business Loans
+        </h3>
+<p>
+         Financing guidance for expansion, operations and new opportunities.
+        </p>
+<a href="#contact">
+         Discuss your requirement ↗
+        </a>
+</div>
+</article>
+<article class="service-card">
+<img alt="Property and mortgage paperwork" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<div class="body">
+<span class="num">
+         03 / PROPERTY FINANCE
+        </span>
+<h3>
+         Mortgage Loans
+        </h3>
+<p>
+         Understand financing possibilities against eligible property assets.
+        </p>
+<a href="#contact">
+         Discuss your requirement ↗
+        </a>
+</div>
+</article>
+<article class="service-card">
+<img alt="Contemporary corporate interior" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<div class="body">
+<span class="num">
+         04 / WORKING CAPITAL
+        </span>
+<h3>
+         OD / CC Facilities
+        </h3>
+<p>
+         Explore overdraft and cash credit options for business cash-flow needs.
+        </p>
+<a href="#contact">
+         Discuss your requirement ↗
+        </a>
+</div>
+</article>
+<article class="service-card">
+<img alt="Financial documents and calculator" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<div class="body">
+<span class="num">
+         05 / STRUCTURED FINANCE
+        </span>
+<h3>
+         BG &amp; LRD
+        </h3>
+<p>
+         Guidance on bank guarantees and lease rental discounting solutions.
+        </p>
+<a href="#contact">
+         Discuss your requirement ↗
+        </a>
+</div>
+</article>
+<article class="service-card">
+<img alt="Modern car" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<div class="body">
+<span class="num">
+         06 / EVERYDAY MILESTONES
+        </span>
+<h3>
+         Personal &amp; Auto Loans
+        </h3>
+<p>
+         Understand suitable borrowing options for personal needs and mobility.
+        </p>
+<a href="#contact">
+         Discuss your requirement ↗
+        </a>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<section class="section calc" id="calculator">
+<div class="container">
+<div class="section-head">
+<span class="eyebrow">
        SMART FINANCIAL TOOLS
       </span>
-      <h2>
+<h2>
        Know your numbers.
        <br/>
        Plan with confidence.
       </h2>
-      <p>
+<p>
        Adjust the values to estimate a monthly EMI instantly. No login or personal information required.
       </p>
-     </div>
-     <div class="calc-grid">
-      <div class="calc-panel">
-       <label for="loanAmount">
+</div>
+<div class="calc-grid">
+<div class="calc-panel">
+<label for="loanAmount">
         Loan amount
         <output id="amountOut">
          ₹30,00,000
         </output>
-       </label>
-       <input id="loanAmount" max="20000000" min="100000" step="50000" type="range" value="3000000"/>
-       <label for="loanRate">
+</label>
+<input id="loanAmount" max="20000000" min="100000" step="50000" type="range" value="3000000"/>
+<label for="loanRate">
         Annual interest rate
         <output id="rateOut">
          9.0%
         </output>
-       </label>
-       <input id="loanRate" max="20" min="1" step="0.1" type="range" value="9"/>
-       <label for="loanYears">
+</label>
+<input id="loanRate" max="20" min="1" step="0.1" type="range" value="9"/>
+<label for="loanYears">
         Loan tenure
         <output id="yearsOut">
          20 years
         </output>
-       </label>
-       <input id="loanYears" max="30" min="1" step="1" type="range" value="20"/>
-       <p style="font-size:12px;color:var(--muted);margin:0">
+</label>
+<input id="loanYears" max="30" min="1" step="1" type="range" value="20"/>
+<p style="font-size:12px;color:var(--muted);margin:0">
         Illustrative calculation only. Actual lender terms may vary.
        </p>
-      </div>
-      <div class="result-panel">
-       <div class="result-label">
+</div>
+<div class="result-panel">
+<div class="result-label">
         ESTIMATED MONTHLY EMI
        </div>
-       <div aria-live="polite" class="emi-value" id="emiOut">
+<div aria-live="polite" class="emi-value" id="emiOut">
         ₹26,992
        </div>
-       <div class="result-line">
-        <span>
+<div class="result-line">
+<span>
          Principal amount
         </span>
-        <strong id="principalOut">
+<strong id="principalOut">
          ₹30,00,000
         </strong>
-       </div>
-       <div class="result-line">
-        <span>
+</div>
+<div class="result-line">
+<span>
          Total interest
         </span>
-        <strong id="interestOut">
+<strong id="interestOut">
          —
         </strong>
-       </div>
-       <div class="result-line">
-        <span>
+</div>
+<div class="result-line">
+<span>
          Total repayment
         </span>
-        <strong id="totalOut">
+<strong id="totalOut">
          —
         </strong>
-       </div>
-       <div aria-label="Principal and interest proportion" class="bar">
-        <span id="principalBar">
-        </span>
-       </div>
-       <div class="legend">
-        <span>
-         <b>
-         </b>
+</div>
+<div aria-label="Principal and interest proportion" class="bar">
+<span id="principalBar">
+</span>
+</div>
+<div class="legend">
+<span>
+<b>
+</b>
          Principal
         </span>
-        <span class="interest">
-         <b>
-         </b>
+<span class="interest">
+<b>
+</b>
          Interest
         </span>
-       </div>
-       <p class="disclaimer">
+</div>
+<p class="disclaimer">
         EMI results are indicative and exclude fees, insurance and other charges.
        </p>
-      </div>
-     </div>
-    </div>
-   </section>
-   <section class="section insights" id="insights">
-    <div class="container">
-     <div class="section-head">
-      <span class="eyebrow">
+</div>
+</div>
+</div>
+</section>
+<section class="section insights" id="insights">
+<div class="container">
+<div class="section-head">
+<span class="eyebrow">
        FINANCIAL INSIGHTS
       </span>
-      <h2>
+<h2>
        Smarter questions. Better decisions.
       </h2>
-      <p>
+<p>
        Helpful educational pointers while you consider your next financial step. These are general insights, not live financial news.
       </p>
-     </div>
-     <div class="insight-grid">
-      <article class="insight">
-       <small>
+</div>
+<div class="insight-grid">
+<article class="insight">
+<small>
         HOME FINANCE
        </small>
-       <h3>
+<h3>
         Look beyond the monthly EMI.
        </h3>
-       <p>
+<p>
         Compare overall interest, processing fees and repayment flexibility before deciding.
        </p>
-      </article>
-      <article class="insight">
-       <small>
+</article>
+<article class="insight">
+<small>
         BUSINESS FINANCE
        </small>
-       <h3>
+<h3>
         Match funding to cash flow.
        </h3>
-       <p>
+<p>
         Different funding structures can suit different working capital and expansion needs.
        </p>
-      </article>
-      <article class="insight">
-       <small>
+</article>
+<article class="insight">
+<small>
         FINANCIAL PLANNING
        </small>
-       <h3>
+<h3>
         Keep room for the unexpected.
        </h3>
-       <p>
+<p>
         Plan loan commitments alongside essential expenses and emergency savings.
        </p>
-      </article>
-     </div>
-    </div>
-   </section>
-   <section class="section latest-updates" id="latest-updates" hidden aria-labelledby="latest-updates-heading">
-    <div class="container">
-     <div class="section-head">
-      <span class="eyebrow">LATEST UPDATES</span>
-      <h2 id="latest-updates-heading">News, loan updates &amp; announcements.</h2>
-      <p>Recent updates from Joypur Tresors Financial Solutions.</p>
-     </div>
-     <div class="latest-updates-grid" id="latest-updates-grid"></div>
-    </div>
-   </section>
-   <section class="section promise" id="approach">
-    <div class="container">
-     <div class="section-head">
-      <span class="eyebrow">
+</article>
+</div>
+</div>
+</section>
+<section aria-labelledby="latest-updates-heading" class="section latest-updates" hidden="" id="latest-updates">
+<div class="container">
+<div class="section-head">
+<span class="eyebrow">LATEST UPDATES</span>
+<h2 id="latest-updates-heading">News, loan updates &amp; announcements.</h2>
+<p>Recent updates from Joypur Tresors Financial Solutions.</p>
+</div>
+<div class="latest-updates-grid" id="latest-updates-grid"></div>
+</div>
+</section>
+<section class="section promise" id="approach">
+<div class="container">
+<div class="section-head">
+<span class="eyebrow">
        THE JOYPUR APPROACH
       </span>
-      <h2>
+<h2>
        Thoughtful service at every step.
       </h2>
-      <p>
+<p>
        Our service principles—not fabricated customer testimonials.
       </p>
-     </div>
-     <div class="promise-grid">
-      <div class="promise-card">
-       <span class="icon">
+</div>
+<div class="promise-grid">
+<div class="promise-card">
+<span class="icon">
         ◇
        </span>
-       <h3>
+<h3>
         Listen first
        </h3>
-       <p>
+<p>
         We begin by understanding your purpose, priorities and questions.
        </p>
-      </div>
-      <div class="promise-card">
-       <span class="icon">
+</div>
+<div class="promise-card">
+<span class="icon">
         ◎
        </span>
-       <h3>
+<h3>
         Explain clearly
        </h3>
-       <p>
+<p>
         We aim to make loan categories and key considerations easier to navigate.
        </p>
-      </div>
-      <div class="promise-card">
-       <span class="icon">
+</div>
+<div class="promise-card">
+<span class="icon">
         ↗
        </span>
-       <h3>
+<h3>
         Move forward
        </h3>
-       <p>
+<p>
         We help you identify practical next steps based on your financing requirement.
        </p>
-      </div>
-     </div>
-    </div>
-   </section>
-   <section class="section contact" id="contact">
-    <div class="container contact-grid">
-     <div>
-      <span class="eyebrow">
+</div>
+</div>
+</div>
+</section>
+<section class="section contact" id="contact">
+<div class="container contact-grid">
+<div>
+<span class="eyebrow">
        LET'S CONNECT
       </span>
-      <h2>
+<h2>
        Let's talk about what comes next.
       </h2>
-      <p>
+<p>
        Tell us a little about your financing requirement. We'll use the details you provide to respond to your enquiry.
       </p>
-      <a class="contact-link" href="mailto:joypurtresors@gmail.com">
+<a class="contact-link" href="mailto:joypurtresors@gmail.com">
        ✉  joypurtresors@gmail.com
       </a>
-      <a class="contact-link" href="https://wa.me/918104355533" rel="noopener noreferrer" target="_blank">
+<a class="contact-link" href="https://wa.me/918104355533" rel="noopener noreferrer" target="_blank">
        ◉  WhatsApp: +91 8104355533 ↗
       </a>
-      <p style="font-size:12px">
+<p style="font-size:12px">
        For your safety, please do not share passwords, OTPs or banking credentials.
       </p>
-     </div>
-     <form class="contact-form" id="contactForm" method="POST">
-      <h3>
+</div>
+<form class="contact-form" id="contactForm" method="POST">
+<h3>
        Send an enquiry
       </h3>
-      <p class="hint">
+<p class="hint">
        Fields marked * are required.
       </p>
-      <input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px"/>
-      <div class="fields">
-       <div class="field">
-        <label for="name">
+<input aria-hidden="true" autocomplete="off" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text"/>
+<div class="fields">
+<div class="field">
+<label for="name">
          Full name *
         </label>
-        <input autocomplete="name" id="name" maxlength="100" name="name" required=""/>
-       </div>
-       <div class="field">
-        <label for="mobile">
+<input autocomplete="name" id="name" maxlength="100" name="name" required=""/>
+</div>
+<div class="field">
+<label for="mobile">
          Mobile number *
         </label>
-        <input autocomplete="tel" id="mobile" inputmode="tel" maxlength="18" name="mobile" pattern="[0-9+() -]{10,18}" required=""/>
-       </div>
-       <div class="field">
-        <label for="age">
+<input autocomplete="tel" id="mobile" inputmode="tel" maxlength="18" name="mobile" pattern="[0-9+() -]{10,18}" required=""/>
+</div>
+<div class="field">
+<label for="age">
          Age (optional)
         </label>
-        <input id="age" max="120" min="18" name="age" type="number"/>
-       </div>
-       <div class="field">
-        <label for="email">
+<input id="age" max="120" min="18" name="age" type="number"/>
+</div>
+<div class="field">
+<label for="email">
          Email (optional)
         </label>
-        <input autocomplete="email" id="email" name="email" type="email"/>
-       </div>
-       <div class="field">
-        <label for="city">
+<input autocomplete="email" id="email" name="email" type="email"/>
+</div>
+<div class="field">
+<label for="city">
          City (optional)
         </label>
-        <input autocomplete="address-level2" id="city" name="city"/>
-       </div>
-       <div class="field">
-        <label for="loanType">
+<input autocomplete="address-level2" id="city" name="city"/>
+</div>
+<div class="field">
+<label for="loanType">
          Loan requirement (optional)
         </label>
-        <select id="loanType" name="loan_type">
-         <option value="">
+<select id="loanType" name="loan_type">
+<option value="">
           Select a service
          </option>
-         <option>
+<option>
           Home Loan
          </option>
-         <option>
+<option>
           Business Loan
          </option>
-         <option>
+<option>
           Mortgage Loan
          </option>
-         <option>
+<option>
           OD / CC
          </option>
-         <option>
+<option>
           BG / LRD
          </option>
-         <option>
+<option>
           Personal Loan
          </option>
-         <option>
+<option>
           Auto Loan
          </option>
-         <option>
+<option>
           Other
          </option>
-        </select>
-       </div>
-      </div>
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFdqLsYkbZdk_Nsd" data-theme="light" style="margin:16px 0"></div>
-      <button class="btn btn-primary" id="enquirySubmit" type="submit">
+</select>
+</div>
+</div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAFdqLsYkbZdk_Nsd" data-theme="light" style="margin:16px 0"></div>
+<button class="btn btn-primary" id="enquirySubmit" type="submit">
        Submit enquiry ↗
       </button>
-      <p id="enquiryStatus" role="status" aria-live="polite" style="margin-top:12px;font-weight:600"></p>
-      <p class="privacy">
+<p aria-live="polite" id="enquiryStatus" role="status" style="margin-top:12px;font-weight:600"></p>
+<p class="privacy">
        By submitting, you agree to be contacted regarding your enquiry. Never share passwords, OTPs or banking credentials.
       </p>
-     </form>
-    </div>
-   </section>
-   
-<!-- Newsletter Phase 4A: visual preview only; no email collection. -->
-<section class="section newsletter-preview" id="newsletter" aria-labelledby="newsletter-heading">
-  <div class="container">
-    <div class="newsletter-panel">
-      <span class="eyebrow">JOYPUR NEWSLETTER</span>
-      <h2 id="newsletter-heading">Stay Financially Informed</h2>
-      <p>Get useful updates about loans, financial services and important announcements from Joypur Tresors.</p>
-      <div class="newsletter-fields">
-        <input type="email" id="newsletter-email-preview" placeholder="Enter your email address" aria-label="Your email address" disabled autocomplete="off">
-      </div>
-      <label class="newsletter-consent">
-        <input type="checkbox" disabled>
-        <span>I agree to receive email updates and understand that I can unsubscribe anytime.</span>
-      </label>
-      <button type="button" class="btn btn-primary" disabled aria-disabled="true">Subscribe ↗</button>
-      <p class="newsletter-notice" role="status">Preview design only — subscription is not yet active. No email address is collected or sent.</p>
-    </div>
-  </div>
+</form>
+</div>
 </section>
-  </main>
-  <footer class="footer">
-   <div class="container">
-    <div class="footer-grid">
-     <div>
-     <a class="brand" href="#home" aria-label="Joypur Tresors home">
-  <img
-    src="assets/joypur-tresors-logo-approved.png"
-    alt="Joypur Tresors Financial Solutions"
-  />
+<!-- Newsletter Phase 4A: visual preview only; no email collection. -->
+<section aria-labelledby="newsletter-heading" class="section newsletter-preview" id="newsletter">
+<div class="container">
+<div class="newsletter-panel">
+<span class="eyebrow">JOYPUR NEWSLETTER</span>
+<h2 id="newsletter-heading">Stay Financially Informed</h2>
+<p>Get useful updates about loans, financial services and important announcements from Joypur Tresors.</p>
+<div class="newsletter-fields">
+<input aria-label="Your email address" autocomplete="off" disabled="" id="newsletter-email-preview" placeholder="Enter your email address" type="email"/>
+</div>
+<label class="newsletter-consent">
+<input disabled="" type="checkbox"/>
+<span>I agree to receive email updates and understand that I can unsubscribe anytime.</span>
+</label>
+<button aria-disabled="true" class="btn btn-primary" disabled="" type="button">Subscribe ↗</button>
+<p class="newsletter-notice" role="status">Preview design only — subscription is not yet active. No email address is collected or sent.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a aria-label="Joypur Tresors home" class="brand" href="#home">
+<img alt="Joypur Tresors Financial Solutions" src="assets/joypur-tresors-logo-approved.png"/>
 </a>
-      <p>
+<p>
        Considered finance solutions for individuals, entrepreneurs and growing businesses.
       </p>
-     </div>
-     <div>
-      <h4>
+</div>
+<div>
+<h4>
        Explore
       </h4>
-      <a href="#services">
+<a href="#services">
        Loan solutions
       </a>
-      <a href="#about">
+<a href="#about">
        About us
       </a>
-      <a href="#calculator">
+<a href="#calculator">
        EMI calculator
       </a>
-     </div>
-     <div>
-      <h4>
+</div>
+<div>
+<h4>
        Connect
       </h4>
-      <a href="mailto:joypurtresors@gmail.com">
+<a href="mailto:joypurtresors@gmail.com">
        Email us
       </a>
-      <a href="https://wa.me/918104355533" rel="noopener noreferrer" target="_blank">
+<a href="https://wa.me/918104355533" rel="noopener noreferrer" target="_blank">
        WhatsApp
       </a>
-      <a href="#contact">
+<a href="#contact">
        Enquiry form
       </a>
-     </div>
-    </div>
-    <div class="foot-bottom">
+</div>
+</div>
+<div class="foot-bottom">
      ©
      <span id="year">
-     </span>
+</span>
      Joypur Tresors Financial Solutions. Information on this site is general and does not guarantee loan approval or terms.
     </div>
-   </div>
-  </footer>
-  <a aria-label="Chat with Joypur Tresors on WhatsApp" class="whatsapp" href="https://wa.me/918104355533?text=Hello%20Joypur%20Tresors%2C%20I%20would%20like%20to%20enquire%20about%20a%20loan." rel="noopener noreferrer" target="_blank">
+</div>
+</footer>
+<a aria-label="Chat with Joypur Tresors on WhatsApp" class="whatsapp" href="https://wa.me/918104355533?text=Hello%20Joypur%20Tresors%2C%20I%20would%20like%20to%20enquire%20about%20a%20loan." rel="noopener noreferrer" target="_blank">
    ◉   WhatsApp
   </a>
-  <script>
+<script>
    const menuToggle=document.getElementById('menuToggle'),mobileNav=document.getElementById('mobileNav');
 menuToggle.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');
 menuToggle.setAttribute('aria-expanded',String(open));
@@ -1760,7 +1798,6 @@ document.getElementById('principalBar').style.width=(100*p/total).toFixed(2)+'%'
 updateEmi();
 document.getElementById('year').textContent=new Date().getFullYear();
   </script>
- 
 <script>
 /* Align the visible section heading below the sticky navigation. */
 (() => {
