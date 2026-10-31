@@ -1,6 +1,6 @@
 
-const json = (data, status = 200) =>
-  new Response(JSON.stringify(data), {
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), {
     status,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -8,6 +8,7 @@ const json = (data, status = 200) =>
       "X-Content-Type-Options": "nosniff"
     }
   });
+}
 
 async function hashToken(token) {
   const digest = await crypto.subtle.digest(
@@ -37,10 +38,30 @@ export async function onRequestPost({ request, env }) {
     }, 403);
   }
 
+  if (
+    !(request.headers.get("Content-Type") || "")
+      .toLowerCase()
+      .includes("application/json")
+  ) {
+    return json({
+      success: false,
+      error: "JSON required"
+    }, 415);
+  }
+
   let body;
 
   try {
-    body = await request.json();
+    const raw = await request.text();
+
+    if (raw.length > 2048) {
+      return json({
+        success: false,
+        error: "Request too large"
+      }, 413);
+    }
+
+    body = JSON.parse(raw);
   } catch {
     return json({
       success: false,
@@ -58,40 +79,51 @@ export async function onRequestPost({ request, env }) {
     }, 400);
   }
 
-  const tokenHash = await hashToken(token);
-
   try {
-    // Update subscriber only when the token is valid and unused.
-    const result = await env.DB.prepare(
-      `UPDATE newsletter_subscribers
-       SET status = 'confirmed',
-           updated_at = CURRENT_TIMESTAMP
-       WHERE status = 'pending'
-         AND id = (
-           SELECT subscriber_id
-           FROM newsletter_tokens
-           WHERE token_hash = ?
-             AND purpose = 'confirm'
-             AND used_at IS NULL
-             AND expires_at > CURRENT_TIMESTAMP
-         )`
-    ).bind(tokenHash).run();
+    const tokenHash = await hashToken(token);
 
-    if (result.meta?.changes !== 1) {
+    // One conditional update atomically confirms the subscriber.
+    // A second update records token use in the same D1 batch.
+    const results = await env.DB.batch([
+      env.DB.prepare(
+        `UPDATE newsletter_subscribers
+         SET status = 'confirmed',
+             updated_at = CURRENT_TIMESTAMP
+         WHERE status = 'pending'
+           AND id = (
+             SELECT subscriber_id
+             FROM newsletter_tokens
+             WHERE token_hash = ?
+               AND purpose = 'confirm'
+               AND used_at IS NULL
+               AND expires_at > CURRENT_TIMESTAMP
+           )`
+      ).bind(tokenHash),
+
+      env.DB.prepare(
+        `UPDATE newsletter_tokens
+         SET used_at = CURRENT_TIMESTAMP
+         WHERE token_hash = ?
+           AND purpose = 'confirm'
+           AND used_at IS NULL
+           AND expires_at > CURRENT_TIMESTAMP
+           AND subscriber_id IN (
+             SELECT id
+             FROM newsletter_subscribers
+             WHERE status = 'confirmed'
+           )`
+      ).bind(tokenHash)
+    ]);
+
+    const confirmed = results[0]?.meta?.changes === 1;
+    const consumed = results[1]?.meta?.changes === 1;
+
+    if (!confirmed || !consumed) {
       return json({
         success: false,
         error: "Invalid, expired or already used confirmation link"
       }, 400);
     }
-
-    // Mark the confirmation token as used.
-    await env.DB.prepare(
-      `UPDATE newsletter_tokens
-       SET used_at = CURRENT_TIMESTAMP
-       WHERE token_hash = ?
-         AND purpose = 'confirm'
-         AND used_at IS NULL`
-    ).bind(tokenHash).run();
 
     return json({
       success: true,
