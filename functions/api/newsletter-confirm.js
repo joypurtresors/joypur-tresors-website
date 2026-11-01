@@ -38,11 +38,10 @@ export async function onRequestPost({ request, env }) {
     }, 403);
   }
 
-  if (
-    !(request.headers.get("Content-Type") || "")
-      .toLowerCase()
-      .includes("application/json")
-  ) {
+  const contentType =
+    (request.headers.get("Content-Type") || "").toLowerCase();
+
+  if (!contentType.includes("application/json")) {
     return json({
       success: false,
       error: "JSON required"
@@ -82,46 +81,28 @@ export async function onRequestPost({ request, env }) {
   try {
     const tokenHash = await hashToken(token);
 
-    // One conditional update atomically confirms the subscriber.
-    // A second update records token use in the same D1 batch.
-    const results = await env.DB.batch([
-      env.DB.prepare(
-        `UPDATE newsletter_subscribers
-         SET status = 'confirmed',
-             updated_at = CURRENT_TIMESTAMP
-         WHERE status = 'pending'
-           AND id = (
-             SELECT subscriber_id
-             FROM newsletter_tokens
-             WHERE token_hash = ?
-               AND purpose = 'confirm'
-               AND used_at IS NULL
-               AND expires_at > CURRENT_TIMESTAMP
-           )`
-      ).bind(tokenHash),
+    // Single conditional SQL update.
+    // A subscriber can transition from pending to confirmed
+    // only once, using an unused, unexpired confirmation token.
+    const result = await env.DB.prepare(
+      `UPDATE newsletter_subscribers
+       SET status = 'confirmed',
+           updated_at = CURRENT_TIMESTAMP
+       WHERE status = 'pending'
+         AND id = (
+           SELECT subscriber_id
+           FROM newsletter_tokens
+           WHERE token_hash = ?
+             AND purpose = 'confirm'
+             AND used_at IS NULL
+             AND expires_at > CURRENT_TIMESTAMP
+         )`
+    ).bind(tokenHash).run();
 
-      env.DB.prepare(
-        `UPDATE newsletter_tokens
-         SET used_at = CURRENT_TIMESTAMP
-         WHERE token_hash = ?
-           AND purpose = 'confirm'
-           AND used_at IS NULL
-           AND expires_at > CURRENT_TIMESTAMP
-           AND subscriber_id IN (
-             SELECT id
-             FROM newsletter_subscribers
-             WHERE status = 'confirmed'
-           )`
-      ).bind(tokenHash)
-    ]);
-
-    const confirmed = results[0]?.meta?.changes === 1;
-    const consumed = results[1]?.meta?.changes === 1;
-
-    if (!confirmed || !consumed) {
+    if (result.meta?.changes !== 1) {
       return json({
         success: false,
-        error: "Invalid, expired or already used confirmation link"
+        error: "Invalid, expired or already confirmed link"
       }, 400);
     }
 
