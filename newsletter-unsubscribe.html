@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Cache-Control" content="no-store">
+
+  <title>Unsubscribe | Joypur Tresors</title>
+
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #f5f7fa;
+      color: #172b4d;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 520px;
+      padding: 42px 30px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, .08);
+      text-align: center;
+    }
+
+    .brand {
+      margin-bottom: 20px;
+      color: #a77c37;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 5vw, 34px);
+    }
+
+    p {
+      color: #536277;
+      line-height: 1.65;
+    }
+
+    button,
+    .home {
+      display: inline-block;
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 10px;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    button {
+      margin-top: 14px;
+      background: #173e68;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .home {
+      margin-top: 18px;
+      color: #173e68;
+    }
+
+    #status {
+      min-height: 24px;
+      margin-top: 18px;
+      font-weight: 600;
+    }
+
+    .success {
+      color: #167342 !important;
+    }
+
+    .error {
+      color: #b42318 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="panel">
+    <div class="brand">JOYPUR TRESORS</div>
+
+    <h1>Unsubscribe from Newsletter</h1>
+
+    <p>
+      We're sorry to see you go.
+      If you no longer wish to receive financial updates
+      from Joypur Tresors, please confirm below.
+    </p>
+
+    <button id="unsubscribeButton" type="button" disabled>
+      Unsubscribe
+    </button>
+
+    <p id="status" role="status" aria-live="polite"></p>
+
+    <a class="home" href="/">Return to Homepage</a>
+  </main>
+
+  <script>
+    (() => {
+      const button =
+        document.getElementById("unsubscribeButton");
+
+      const status =
+        document.getElementById("status");
+
+      const params = new URLSearchParams(location.search);
+      const token = params.get("token") || "";
+
+      // Remove token from the browser address bar.
+      history.replaceState(null, "", location.pathname);
+
+      function show(message, kind = "") {
+        status.textContent = message;
+        status.className = kind;
+      }
+
+      if (!/^[a-f0-9]{64}$/.test(token)) {
+        show("This unsubscribe link is invalid.", "error");
+        return;
+      }
+
+      button.disabled = false;
+
+      button.addEventListener("click", async () => {
+        button.disabled = true;
+        show("Processing your request...");
+
+        try {
+          const response = await fetch(
+            "/api/newsletter-unsubscribe",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ token })
+            }
+          );
+
+          const data = await response.json();
+
+          if (!response.ok || !data.success) {
+            throw new Error(
+              data.error ||
+              "Unable to unsubscribe. Please try again."
+            );
+          }
+
+          show(
+            "You have successfully unsubscribed from our newsletter.",
+            "success"
+          );
+
+          button.hidden = true;
+
+        } catch (error) {
+          show(
+            error.message || "Please try again later.",
+            "error"
+          );
+
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
