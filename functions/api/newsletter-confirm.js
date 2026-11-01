@@ -81,9 +81,12 @@ export async function onRequestPost({ request, env }) {
   try {
     const tokenHash = await hashToken(token);
 
-    // Single conditional SQL update.
-    // A subscriber can transition from pending to confirmed
-    // only once, using an unused, unexpired confirmation token.
+    // Confirmation is allowed only for a pending subscriber
+    // with a valid, unused and unexpired confirmation token.
+    //
+    // The Preview D1 trigger automatically creates the
+    // welcome queue entry on pending -> confirmed.
+
     const result = await env.DB.prepare(
       `UPDATE newsletter_subscribers
        SET status = 'confirmed',
@@ -105,7 +108,7 @@ export async function onRequestPost({ request, env }) {
         error: "Invalid, expired or already confirmed link"
       }, 400);
     }
-
+    
     return json({
       success: true,
       message: "Your newsletter subscription is confirmed."
