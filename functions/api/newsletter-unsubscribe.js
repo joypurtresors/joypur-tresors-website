@@ -84,22 +84,30 @@ export async function onRequestPost({ request, env }) {
 
     // Only a confirmed subscriber with a valid, unused
     // unsubscribe token can change status.
-    const result = await env.DB.prepare(
-      `UPDATE newsletter_subscribers
-       SET status = 'unsubscribed',
-           updated_at = CURRENT_TIMESTAMP
-       WHERE status = 'confirmed'
-         AND id = (
-           SELECT subscriber_id
-           FROM newsletter_tokens
-           WHERE token_hash = ?
-             AND purpose = 'unsubscribe'
-             AND used_at IS NULL
-             AND expires_at > CURRENT_TIMESTAMP
-         )`
-    ).bind(tokenHash).run();
+    
+const unsubscribed = await env.DB.prepare(
+  `UPDATE newsletter_subscribers
+   SET status = 'unsubscribed',
+       updated_at = CURRENT_TIMESTAMP
+   WHERE status = 'confirmed'
+     AND id = (
+       SELECT subscriber_id
+       FROM newsletter_tokens
+       WHERE token_hash = ?
+         AND purpose = 'unsubscribe'
+         AND used_at IS NULL
+         AND expires_at > CURRENT_TIMESTAMP
+     )
+   RETURNING id`
+).bind(tokenHash).first();
 
-    if (result.meta?.changes !== 1) {
+if (!unsubscribed) {
+  return json({
+    success: false,
+    error: "Invalid, expired or already used unsubscribe link"
+  }, 400);
+}
+ {
       return json({
         success: false,
         error: "Invalid, expired or already used unsubscribe link"
