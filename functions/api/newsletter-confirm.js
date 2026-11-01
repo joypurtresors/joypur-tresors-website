@@ -87,27 +87,29 @@ export async function onRequestPost({ request, env }) {
     // The Preview D1 trigger automatically creates the
     // welcome queue entry on pending -> confirmed.
 
-    const result = await env.DB.prepare(
-      `UPDATE newsletter_subscribers
-       SET status = 'confirmed',
-           updated_at = CURRENT_TIMESTAMP
-       WHERE status = 'pending'
-         AND id = (
-           SELECT subscriber_id
-           FROM newsletter_tokens
-           WHERE token_hash = ?
-             AND purpose = 'confirm'
-             AND used_at IS NULL
-             AND expires_at > CURRENT_TIMESTAMP
-         )`
-    ).bind(tokenHash).run();
+   
+const confirmed = await env.DB.prepare(
+  `UPDATE newsletter_subscribers
+   SET status = 'confirmed',
+       updated_at = CURRENT_TIMESTAMP
+   WHERE status = 'pending'
+     AND id = (
+       SELECT subscriber_id
+       FROM newsletter_tokens
+       WHERE token_hash = ?
+         AND purpose = 'confirm'
+         AND used_at IS NULL
+         AND expires_at > CURRENT_TIMESTAMP
+     )
+   RETURNING id`
+).bind(tokenHash).first();
 
-    if (result.meta?.changes !== 1) {
-      return json({
-        success: false,
-        error: "Invalid, expired or already confirmed link"
-      }, 400);
-    }
+if (!confirmed) {
+  return json({
+    success: false,
+    error: "Invalid, expired or already confirmed link"
+  }, 400);
+}
     
     return json({
       success: true,
