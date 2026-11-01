@@ -1673,24 +1673,55 @@ header.nav .brand img { display:block; }
 </div>
 </section>
 <!-- Newsletter Phase 4A: visual preview only; no email collection. -->
+
+<!-- Newsletter: Preview integration -->
 <section aria-labelledby="newsletter-heading" class="section newsletter-preview" id="newsletter">
-<div class="container">
-<div class="newsletter-panel">
-<span class="eyebrow">JOYPUR NEWSLETTER</span>
-<h2 id="newsletter-heading">Stay Financially Informed</h2>
-<p>Get useful updates about loans, financial services and important announcements from Joypur Tresors.</p>
-<div class="newsletter-fields">
-<input aria-label="Your email address" autocomplete="off" disabled="" id="newsletter-email-preview" placeholder="Enter your email address" type="email"/>
-</div>
-<label class="newsletter-consent">
-<input disabled="" type="checkbox"/>
-<span>I agree to receive email updates and understand that I can unsubscribe anytime.</span>
-</label>
-<button aria-disabled="true" class="btn btn-primary" disabled="" type="button">Subscribe ↗</button>
-<p class="newsletter-notice" role="status">Preview design only — subscription is not yet active. No email address is collected or sent.</p>
-</div>
-</div>
+  <div class="container">
+    <div class="newsletter-panel">
+      <span class="eyebrow">JOYPUR NEWSLETTER</span>
+      <h2 id="newsletter-heading">Stay Financially Informed</h2>
+      <p>Get useful updates about loans, financial services and important announcements from Joypur Tresors.</p>
+
+      <form id="newsletter-form">
+        <div class="newsletter-fields">
+          <input
+            aria-label="Your email address"
+            autocomplete="email"
+            id="newsletter-email-preview"
+            name="email"
+            placeholder="Enter your email address"
+            type="email"
+            maxlength="254"
+            required
+          />
+        </div>
+
+        <label class="newsletter-consent">
+          <input id="newsletter-consent" type="checkbox" required />
+          <span>I agree to receive email updates and understand that I can unsubscribe anytime.</span>
+        </label>
+
+        <div
+          class="cf-turnstile"
+          data-sitekey="0x4AAAAAAFdqLsYkbZdk_Nsd">
+        </div>
+
+        <button class="btn btn-primary" id="newsletter-submit" type="submit">
+          Subscribe ↗
+        </button>
+
+        <p
+          class="newsletter-notice"
+          id="newsletter-status"
+          role="status"
+          aria-live="polite">
+          Please confirm your email address to subscribe.
+        </p>
+      </form>
+    </div>
+  </div>
 </section>
+
 </main>
 <footer class="footer">
 <div class="container">
@@ -1987,6 +2018,105 @@ document.getElementById('year').textContent=new Date().getFullYear();
   loadLatestUpdates();
 })();
 </script>
+
+<!-- Newsletter Preview: Turnstile and subscription -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+(() => {
+  'use strict';
+
+  const form = document.getElementById('newsletter-form');
+  const emailInput = document.getElementById('newsletter-email-preview');
+  const consentInput = document.getElementById('newsletter-consent');
+  const submitButton = document.getElementById('newsletter-submit');
+  const status = document.getElementById('newsletter-status');
+
+  if (!form || !emailInput || !consentInput || !submitButton || !status) {
+    return;
+  }
+
+  let submitting = false;
+
+  function show(message) {
+    status.textContent = message;
+  }
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    if (submitting) return;
+
+    const email = emailInput.value.trim();
+    const consent = consentInput.checked;
+
+    if (!emailInput.checkValidity() || !consent) {
+      form.reportValidity();
+      return;
+    }
+
+    const turnstileToken = form.querySelector(
+      'input[name="cf-turnstile-response"]'
+    )?.value || '';
+
+    if (!turnstileToken) {
+      show('Please complete the security verification.');
+      return;
+    }
+
+    submitting = true;
+    submitButton.disabled = true;
+    show('Submitting your subscription...');
+
+    try {
+      const response = await fetch('/api/newsletter-subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          consent,
+          turnstile_token: turnstileToken
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error || 'Unable to subscribe. Please try again.'
+        );
+      }
+
+      show(
+        'If eligible, a confirmation email will arrive shortly. Please check your inbox.'
+      );
+
+      form.reset();
+
+    } catch (error) {
+      show(
+        error.message || 'Something went wrong. Please try again.'
+      );
+
+    } finally {
+      submitting = false;
+      submitButton.disabled = false;
+
+      if (window.turnstile) {
+        try {
+          window.turnstile.reset();
+        } catch {
+          // Widget may not have finished loading.
+        }
+      }
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
 ```
