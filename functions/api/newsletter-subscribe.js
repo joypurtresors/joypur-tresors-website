@@ -243,7 +243,7 @@ export async function onRequestPost({ request, env }) {
     ).bind(tokenHash, subscriber.id).run();
 
     const confirmURL =
-      `${url.origin}/api/newsletter-confirm?token=${token}`;
+      `${url.origin}/newsletter-confirm.html?token=${token}`;
 
     const emailText = [
       "Please confirm your Joypur Tresors newsletter subscription.",
