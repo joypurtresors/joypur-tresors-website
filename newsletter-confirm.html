@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Confirm Newsletter | Joypur Tresors</title>
+
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #f5f7fa;
+      color: #172b4d;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 520px;
+      padding: 42px 30px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 12px 36px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #a77c37;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 5vw, 34px);
+    }
+
+    p {
+      line-height: 1.65;
+      color: #536277;
+    }
+
+    button, .home {
+      display: inline-block;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 24px;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    button {
+      margin-top: 14px;
+      color: white;
+      background: #173e68;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .home {
+      margin-top: 18px;
+      color: #173e68;
+    }
+
+    #status {
+      min-height: 24px;
+      margin-top: 18px;
+      font-weight: 600;
+    }
+
+    .success { color: #167342 !important; }
+    .error { color: #b42318 !important; }
+  </style>
+</head>
+
+<body>
+  <main class="panel">
+    <div class="brand">JOYPUR TRESORS</div>
+
+    <h1>Confirm Your Subscription</h1>
+
+    <p>
+      Thank you for your interest in our newsletter.
+      Please confirm that you want to receive
+      financial updates from Joypur Tresors.
+    </p>
+
+    <button id="confirmButton" type="button" disabled>
+      Confirm Subscription
+    </button>
+
+    <p id="status" role="status" aria-live="polite"></p>
+
+    <a class="home" href="/">Return to Homepage</a>
+  </main>
+
+  <script>
+    (() => {
+      const button = document.getElementById("confirmButton");
+      const status = document.getElementById("status");
+
+      const params = new URLSearchParams(location.search);
+      const token = params.get("token") || "";
+
+      // Remove token from the visible URL immediately.
+      history.replaceState(null, "", location.pathname);
+
+      function show(message, kind = "") {
+        status.textContent = message;
+        status.className = kind;
+      }
+
+      if (!/^[a-f0-9]{64}$/.test(token)) {
+        show("This confirmation link is invalid.", "error");
+        return;
+      }
+
+      button.disabled = false;
+
+      button.addEventListener("click", async () => {
+        button.disabled = true;
+        show("Confirming your subscription...");
+
+        try {
+          const response = await fetch("/api/newsletter-confirm", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok || !data.success) {
+            throw new Error(
+              data.error || "Confirmation could not be completed."
+            );
+          }
+
+          show(
+            "Your newsletter subscription is confirmed. Thank you!",
+            "success"
+          );
+
+          button.hidden = true;
+        } catch (error) {
+          show(
+            error.message || "Please try again later.",
+            "error"
+          );
+
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
