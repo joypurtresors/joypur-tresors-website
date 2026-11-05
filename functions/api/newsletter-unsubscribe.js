@@ -107,13 +107,6 @@ if (!unsubscribed) {
     error: "Invalid, expired or already used unsubscribe link"
   }, 400);
 }
- {
-      return json({
-        success: false,
-        error: "Invalid, expired or already used unsubscribe link"
-      }, 400);
-    }
-
     return json({
       success: true,
       message: "You have successfully unsubscribed."
