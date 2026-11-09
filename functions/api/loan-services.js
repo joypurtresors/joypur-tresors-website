@@ -1,0 +1,2 @@
+import {readServices} from '../lib/service-store.js';
+export async function onRequestGet({env}){const headers={'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};try{const data=await readServices(env.DB),services={};for(const [id,s] of Object.entries(data))services[id]=s.state==='enabled'?s:{state:s.state,custom:s.custom,slug:s.slug,loan:s.loan};return new Response(JSON.stringify({success:true,services}),{headers});}catch{return new Response(JSON.stringify({error:'Services unavailable'}),{status:503,headers});}}

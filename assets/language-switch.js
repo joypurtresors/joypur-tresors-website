@@ -4,7 +4,7 @@
  let language='en',dictionary=null,loading=null,choice=0;
  let cms=null,cmsLoading=null;
  let categoryOverrides=null,categoryLoading=null;const categoryDefaults=new WeakMap();
- async function loadCategories(){if(!document.querySelector('[data-category-field]'))return;if(!categoryLoading)categoryLoading=fetch(new URL('/api/category-content',origin),{cache:'no-store',headers:{Accept:'application/json'}}).then(async r=>{if(r.ok){const d=await r.json();if(d.success){categoryOverrides=d.overrides;window.JoypurCategoryView?.install(d);}else window.JoypurCategoryView?.fail();}else window.JoypurCategoryView?.fail();}).catch(()=>window.JoypurCategoryView?.fail());return categoryLoading;}
+ async function loadCategories(){if(!document.querySelector('.product-categories'))return;if(!categoryLoading)categoryLoading=fetch(new URL('/api/category-content',origin),{cache:'no-store',headers:{Accept:'application/json'}}).then(async r=>{if(r.ok){const d=await r.json();if(d.success){categoryOverrides=d.overrides;window.JoypurCategoryView?.install(d);}else window.JoypurCategoryView?.fail();}else window.JoypurCategoryView?.fail();}).catch(()=>window.JoypurCategoryView?.fail());return categoryLoading;}
  function applyCategories(){window.JoypurCategoryView?.apply(language,translated);for(const element of document.querySelectorAll('[data-category-field]')){let original=categoryDefaults.get(element);if(original===undefined){original=element.textContent;categoryDefaults.set(element,original);}const id=element.dataset.categoryField;const saved=categoryOverrides?.[language]?.[id];const english=categoryOverrides?.en?.[id];const isCustom=!!element.closest('[data-custom-category]');const next=typeof saved==='string'&&saved.trim()?saved:(language==='hi'?(isCustom&&english?english:translated(original)):original);element.hidden=!next.trim();if(window.JoypurRichText)window.JoypurRichText.render(element,next);else if(element.textContent!==next)element.textContent=next;}} 
  const cmsSnapshots=new WeakMap();
  const textState=new WeakMap(),attrState=new WeakMap();
@@ -72,11 +72,12 @@
   observer.disconnect();
   try{
    applyCMS();
+   window.JoypurServices?.apply(language,translated);
    applyCategories();
    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
    let node;
    while((node=walker.nextNode())){
-    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title]'))continue;
+    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text]'))continue;
     let state=textState.get(node);
     if(!state||node.nodeValue!==state.last)state={source:node.nodeValue,last:node.nodeValue};
     const next=language==='hi'?translated(state.source):state.source;
@@ -113,7 +114,7 @@
    }catch{loading=null;if(request===choice)status.textContent='हिन्दी लोड नहीं हुई। कृपया फिर कोशिश करें। / Please try again.';return;}
   }
   if(request!==choice)return;
-  await Promise.all([loadCategories(),next==='hi'?loadCMS():Promise.resolve()]);
+  await Promise.all([loadCategories(),window.JoypurServices?.load(),next==='hi'?loadCMS():Promise.resolve()]);
   if(request!==choice)return;
   language=next;status.hidden=true;apply();
   if(persist)try{localStorage.setItem(key,next);}catch{}

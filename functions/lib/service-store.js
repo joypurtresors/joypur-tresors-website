@@ -1,0 +1,11 @@
+export const defaults={home_loans:['Home Loans','home-loans','Home Loan'],business_loans:['Business Loans','business-loans','Business Loan'],mortgage_loans:['Mortgage Loans','mortgage-loans','Mortgage Loan'],od_cc:['OD / CC Facilities','working-capital','OD / CC'],bg_lrd:['BG & LRD','bg-lrd','BG / LRD'],personal_auto:['Personal & Auto Loans','personal-auto','Personal Loan']};
+export const serviceStates=['enabled','disabled','deleted'];
+export function validService(s){return s&&serviceStates.includes(s.state)&&['titleEn','titleHi','descriptionEn','descriptionHi','detailEn','detailHi'].every(k=>typeof s[k]==='string'&&s[k].length<=(k.startsWith('title')?200:k.startsWith('detail')?6000:1000))&&s.titleEn.trim();}
+export async function readServices(DB){
+ const result=await DB.prepare("SELECT section_key,content_key,content_value FROM website_content WHERE section_key IN ('services','services_hi','loan_services')").all(),rows=result.results||[];
+ const services={};for(const [id,[title,slug,loan]] of Object.entries(defaults))services[id]={titleEn:title,titleHi:'',descriptionEn:'',descriptionHi:'',detailEn:'',detailHi:'',state:'enabled',custom:false,slug,loan};
+ for(const row of rows)if(row.section_key==='loan_services'){try{const m=JSON.parse(row.content_value);if(!validService(m)||(!Object.hasOwn(defaults,row.content_key)&&!/^service_[a-f0-9-]{36}$/.test(row.content_key)))continue;services[row.content_key]={...m,custom:!Object.hasOwn(defaults,row.content_key),slug:defaults[row.content_key]?.[1]||'',loan:defaults[row.content_key]?.[2]||''};}catch{}}
+ for(const row of rows)if(['services','services_hi'].includes(row.section_key))for(const [id,s] of Object.entries(services)){if(s.custom)continue;const lang=row.section_key==='services_hi'?'Hi':'En';if(row.content_key===id+'_title'&&row.content_value.trim())s['title'+lang]=row.content_value;if(row.content_key===id+'_description')s['description'+lang]=row.content_value;}
+ return services;
+}
+export function put(DB,section,key,value){return DB.prepare("INSERT INTO website_content(section_key,content_key,content_value,content_type) VALUES(?,?,?,'text') ON CONFLICT(section_key,content_key) DO UPDATE SET content_value=excluded.content_value,updated_at=CURRENT_TIMESTAMP").bind(section,key,value);}
