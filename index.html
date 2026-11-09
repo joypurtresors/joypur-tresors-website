@@ -1100,6 +1100,12 @@ header.nav .brand img { display:block; }
 .navlinks a[aria-current="location"],.mobile-nav a[aria-current="location"] { color:var(--gold); }
 .navlinks a[aria-current="location"] { box-shadow:inset 0 -2px var(--orange); }
 .service-card[id] { scroll-margin-top:112px; }
+/* The existing semantic link covers the entire solution card. */
+.service-card { position:relative; }
+.service-card a::after { content:""; position:absolute; inset:0; border-radius:inherit; }
+.service-card:focus-within { outline:3px solid var(--orange); outline-offset:4px; }
+.service-card a:focus-visible { outline:0; }
+
 @media(max-width:760px) { .ticker .container { justify-content:flex-start; gap:8px 18px; } .ticker .ticker-link { font-size:11px; } .service-card[id] { scroll-margin-top:90px; } }
 </style></head>
 <body>
