@@ -2,6 +2,8 @@
  'use strict';
  const key='joypur-language';
  let language='en',dictionary=null,loading=null,choice=0;
+ let cms=null,cmsLoading=null;
+ const cmsSnapshots=new WeakMap();
  const textState=new WeakMap(),attrState=new WeakMap();
  const normal=value=>String(value).replace(/\s+/g,' ').trim();
  const selector='[data-language-ui],script,style,noscript,code,pre,iframe,textarea';
@@ -29,9 +31,44 @@
   return source;
  }
  const observer=new MutationObserver(()=>apply());
+ async function loadCMS(){
+  if(cmsLoading)return cmsLoading;
+  cmsLoading=fetch(new URL('/api/public-content',origin),{cache:'no-store',headers:{Accept:'application/json'}}).then(async response=>{
+   if(!response.ok)return;
+   const data=await response.json();if(data?.success)cms=data;
+  }).catch(()=>{});
+  return cmsLoading;
+ }
+ function applyCMS(){
+  if(!cms?.translations)return;
+  const targets=[];
+  const hero=document.querySelector('#home .hero-copy');
+  if(hero)for(const [key,selector] of [['eyebrow','.eyebrow'],['heading','h1'],['description','p']])targets.push([hero.querySelector(selector),cms.content?.[key],cms.translations.content?.[key]]);
+  for(const [id,key] of [['home-loans','home_loans'],['business-loans','business_loans'],['mortgage-loans','mortgage_loans'],['working-capital','od_cc'],['bg-lrd','bg_lrd'],['personal-auto','personal_auto']]){
+   for(const [suffix,tag] of [['title','h3'],['description','p']])targets.push([document.querySelector('#'+id+' .body '+tag),cms.services?.[key+'_'+suffix],cms.translations.services?.[key+'_'+suffix]]);
+  }
+  const key=document.body.dataset.serviceKey;
+  if(key)for(const [suffix,selector] of [['title','[data-product-title]'],['description','[data-product-description]']])targets.push([document.querySelector(selector),cms.services?.[key+'_'+suffix],cms.translations.services?.[key+'_'+suffix]]);
+  for(const [element,english,hindi] of targets){
+   if(!element||typeof english!=='string'||typeof hindi!=='string'||!hindi.trim())continue;
+   let snapshot=cmsSnapshots.get(element);
+   if(language==='hi'){
+    if(!snapshot?.active||element.textContent!==snapshot.hindi){
+     snapshot={nodes:[...element.childNodes].map(node=>node.cloneNode(true)),english,hindi:hindi.trim(),active:true};cmsSnapshots.set(element,snapshot);
+    }
+    if(element.textContent!==hindi.trim())element.textContent=hindi.trim();
+   }else if(snapshot?.active){
+    const captured=snapshot.nodes.map(node=>node.textContent).join('').replace(/\s/g,'');
+    if(captured===english.replace(/\s/g,''))element.replaceChildren(...snapshot.nodes.map(node=>node.cloneNode(true)));
+    else element.textContent=english;
+    snapshot.active=false;
+   }
+  }
+ }
  function apply(){
   observer.disconnect();
   try{
+   applyCMS();
    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
    let node;
    while((node=walker.nextNode())){
@@ -71,6 +108,8 @@
     dictionary=await loading;
    }catch{loading=null;if(request===choice)status.textContent='हिन्दी लोड नहीं हुई। कृपया फिर कोशिश करें। / Please try again.';return;}
   }
+  if(request!==choice)return;
+  if(next==='hi')await loadCMS();
   if(request!==choice)return;
   language=next;status.hidden=true;apply();
   if(persist)try{localStorage.setItem(key,next);}catch{}

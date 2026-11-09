@@ -25,20 +25,28 @@ export async function onRequestGet({ env }) {
     const result = await env.DB.prepare(`
       SELECT section_key, content_key, content_value
       FROM website_content
-      WHERE section_key IN ('hero', 'services')
+      WHERE section_key IN ('hero', 'services', 'hero_hi', 'services_hi')
       ORDER BY id
     `).all();
     const content = {};
     const services = {};
+    const hindiContent = {}, hindiServices = {};
     for (const row of result.results ?? []) {
       if (row.section_key === 'hero' && HERO_KEYS.includes(row.content_key)) {
         content[row.content_key] = row.content_value;
       } else if (row.section_key === 'services' && SERVICE_KEYS.includes(row.content_key)) {
         services[row.content_key] = row.content_value;
+      } else if (row.section_key === 'hero_hi' && HERO_KEYS.includes(row.content_key)) {
+        hindiContent[row.content_key] = row.content_value;
+      } else if (row.section_key === 'services_hi' && SERVICE_KEYS.includes(row.content_key)) {
+        hindiServices[row.content_key] = row.content_value;
       }
     }
     // Keep the original hero response shape for existing website consumers.
-    return json({ success: true, content, services });
+    return json({ success: true, content, services,
+      ...(Object.keys(hindiContent).length || Object.keys(hindiServices).length
+        ? { translations: { content: hindiContent, services: hindiServices } } : {})
+    });
   } catch {
     return json({ error: 'Unable to load website content' }, 500);
   }
