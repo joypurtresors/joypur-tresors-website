@@ -103,6 +103,8 @@
    const current=document.title;if(!title.source||current!==title.last)title={source:current,last:current};
    const next=language==='hi'?translated(title.source):title.source;if(current!==next)document.title=next;title.last=next;attrState.set(document.head,title);
    document.documentElement.lang=language;
+   const menu=document.querySelector('#menuToggle');
+   if(menu){const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-label',language==='hi'?(open?'मेन्यू बंद करें':'मेन्यू खोलें'):(open?'Close menu':'Open menu'));}
    for(const [code,button] of Object.entries(buttons))button.setAttribute('aria-pressed',String(code===language));
   }finally{observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','alt']});}
  }
