@@ -1106,7 +1106,7 @@ header.nav .brand img { display:block; }
 .service-card:focus-within { outline:3px solid var(--orange); outline-offset:4px; }
 .service-card a:focus-visible { outline:0; }
 @media(max-width:760px) { .ticker .container { justify-content:flex-start; gap:8px 18px; } .ticker .ticker-link { font-size:11px; } .service-card[id] { scroll-margin-top:90px; } }
-</style><link rel="stylesheet" href="assets/language-switch.css"><script defer src="assets/rich-text.js"></script><script defer src="assets/service-view.js"></script><script defer src="assets/updates-view.js"></script><script defer src="assets/business-profile.js"></script><script defer src="assets/language-switch.js"></script>
+</style><link rel="stylesheet" href="assets/language-switch.css"><script defer src="assets/rich-text.js"></script><script defer src="assets/service-view.js"></script><script defer src="assets/updates-view.js"></script><script defer src="assets/business-profile.js"></script><script defer src="assets/media-view.js"></script><script defer src="assets/language-switch.js"></script>
 </head>
 <body>
 <div class="topbar">
@@ -1191,7 +1191,7 @@ header.nav .brand img { display:block; }
 </div>
 </div>
 <div class="hero-visual">
-<img alt="Contemporary residential architecture" fetchpriority="high" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1400&amp;q=82"/>
+<img data-media-slot="hero_main" alt="Contemporary residential architecture" fetchpriority="high" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1400&amp;q=82"/>
 <div class="hero-float">
 <small>
         MORE THAN FINANCING
@@ -1209,7 +1209,7 @@ header.nav .brand img { display:block; }
 <section class="section about" id="about">
 <div class="container about-grid">
 <div class="about-image">
-<img alt="Bright contemporary office interior" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"/>
+<img data-media-slot="hero_about" alt="Bright contemporary office interior" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"/>
 <div class="about-badge">
 <strong>
         Clarity first.
@@ -1260,7 +1260,7 @@ header.nav .brand img { display:block; }
 </div>
 <div class="services-grid">
 <article class="service-card" id="home-loans">
-<img alt="Modern residential home" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<img data-media-slot="service.home_loans.card" alt="Modern residential home" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
          01 / PERSONAL GOALS
@@ -1277,7 +1277,7 @@ header.nav .brand img { display:block; }
 </div>
 </article>
 <article class="service-card" id="business-loans">
-<img alt="Professional office workspace" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<img data-media-slot="service.business_loans.card" alt="Professional office workspace" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
          02 / BUSINESS GROWTH
@@ -1294,7 +1294,7 @@ header.nav .brand img { display:block; }
 </div>
 </article>
 <article class="service-card" id="mortgage-loans">
-<img alt="Property and mortgage paperwork" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<img data-media-slot="service.mortgage_loans.card" alt="Property and mortgage paperwork" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
          03 / PROPERTY FINANCE
@@ -1311,7 +1311,7 @@ header.nav .brand img { display:block; }
 </div>
 </article>
 <article class="service-card" id="working-capital">
-<img alt="Contemporary corporate interior" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<img data-media-slot="service.od_cc.card" alt="Contemporary corporate interior" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
          04 / WORKING CAPITAL
@@ -1328,7 +1328,7 @@ header.nav .brand img { display:block; }
 </div>
 </article>
 <article class="service-card" id="bg-lrd">
-<img alt="Financial documents and calculator" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<img data-media-slot="service.bg_lrd.card" alt="Financial documents and calculator" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
          05 / STRUCTURED FINANCE
@@ -1345,7 +1345,7 @@ header.nav .brand img { display:block; }
 </div>
 </article>
 <article class="service-card" id="personal-auto">
-<img alt="Modern car" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
+<img data-media-slot="service.personal_auto.card" alt="Modern car" class="photo" loading="lazy" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=850&amp;q=80"/>
 <div class="body">
 <span class="num">
          06 / EVERYDAY MILESTONES

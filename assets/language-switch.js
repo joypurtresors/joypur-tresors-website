@@ -76,6 +76,7 @@
    window.JoypurServices?.apply(language,translated);
    applyCategories();
    window.JoypurBusiness?.apply(language,translated);
+   window.JoypurMedia?.apply(language,translated);
    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
    let node;
    while((node=walker.nextNode())){
@@ -87,7 +88,7 @@
     state.last=next;textState.set(node,state);
    }
    for(const element of document.querySelectorAll('[placeholder],[aria-label],[alt],title')){
-    if(element.closest('[data-language-ui],iframe'))continue;
+    if(element.closest('[data-language-ui],iframe')||element.hasAttribute('data-media-slot'))continue;
     let states=attrState.get(element);if(!states){states={};attrState.set(element,states);}
     for(const attr of ['placeholder','aria-label','alt']){
      if(!element.hasAttribute(attr))continue;
@@ -116,7 +117,7 @@
    }catch{loading=null;if(request===choice)status.textContent='हिन्दी लोड नहीं हुई। कृपया फिर कोशिश करें। / Please try again.';return;}
   }
   if(request!==choice)return;
-  await Promise.all([loadCategories(),window.JoypurServices?.load(),window.JoypurUpdates?.load(),window.JoypurBusiness?.load(),next==='hi'?loadCMS():Promise.resolve()]);
+  await Promise.all([loadCategories(),window.JoypurServices?.load(),window.JoypurUpdates?.load(),window.JoypurBusiness?.load(),window.JoypurMedia?.load(),next==='hi'?loadCMS():Promise.resolve()]);
   if(request!==choice)return;
   language=next;status.hidden=true;apply();
   if(persist)try{localStorage.setItem(key,next);}catch{}
