@@ -1390,6 +1390,7 @@ header.nav .brand img { display:block; }
          ₹30,00,000
         </output>
 </label>
+<p id="amountWords" data-business-text role="status" style="font-size:14px;line-height:1.6;margin:0 0 10px;color:var(--muted)">Thirty lakh rupees</p>
 <input class="calc-manual" id="loanAmountEntry" aria-label="Loan amount" inputmode="numeric" required max="200000000" min="100000" step="1" type="number" value="3000000"/>
 <input id="loanAmount" max="200000000" min="100000" step="1" type="range" value="3000000"/>
 <label for="loanRate">
@@ -1800,10 +1801,22 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileNav.c
 
 const amount=document.getElementById('loanAmount'),rate=document.getElementById('loanRate'),years=document.getElementById('loanYears');
 const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+
+function amountInWords(value,hi){
+ const en=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+ const tens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+ const hindi='शून्य,एक,दो,तीन,चार,पाँच,छह,सात,आठ,नौ,दस,ग्यारह,बारह,तेरह,चौदह,पंद्रह,सोलह,सत्रह,अठारह,उन्नीस,बीस,इक्कीस,बाईस,तेईस,चौबीस,पच्चीस,छब्बीस,सत्ताईस,अट्ठाईस,उनतीस,तीस,इकतीस,बत्तीस,तैंतीस,चौंतीस,पैंतीस,छत्तीस,सैंतीस,अड़तीस,उनतालीस,चालीस,इकतालीस,बयालीस,तैंतालीस,चवालीस,पैंतालीस,छियालीस,सैंतालीस,अड़तालीस,उनचास,पचास,इक्यावन,बावन,तिरपन,चौवन,पचपन,छप्पन,सत्तावन,अट्ठावन,उनसठ,साठ,इकसठ,बासठ,तिरसठ,चौंसठ,पैंसठ,छियासठ,सड़सठ,अड़सठ,उनहत्तर,सत्तर,इकहत्तर,बहत्तर,तिहत्तर,चौहत्तर,पचहत्तर,छिहत्तर,सतहत्तर,अठहत्तर,उनासी,अस्सी,इक्यासी,बयासी,तिरासी,चौरासी,पचासी,छियासी,सत्तासी,अट्ठासी,नवासी,नब्बे,इक्यानवे,बानवे,तिरानवे,चौरानवे,पंचानवे,छियानवे,सत्तानवे,अट्ठानवे,निन्यानवे'.split(',');
+ function spell(n){if(n<100)return hi?hindi[n]:n<20?en[n]:tens[Math.floor(n/10)]+(n%10?' '+en[n%10]:'');for(const [unit,english,local]of [[10000000,'crore','करोड़'],[100000,'lakh','लाख'],[1000,'thousand','हज़ार'],[100,'hundred','सौ']])if(n>=unit)return spell(Math.floor(n/unit))+' '+(hi?local:english)+(n%unit?' '+spell(n%unit):'');}
+ const text=spell(Math.round(value));return hi?text+' रुपये':text.charAt(0).toUpperCase()+text.slice(1)+' rupees';
+}
+function updateAmountWords(){document.getElementById('amountWords').textContent=amountInWords(Number(amount.value),document.documentElement.lang==='hi');}
+new MutationObserver(updateAmountWords).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+
 function updateEmi(){const p=Number(amount.value),r=Number(rate.value)/1200,n=Number(years.value)*12;
 const emi=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
 const total=emi*n;
 document.getElementById('amountOut').textContent=fmt(p);
+updateAmountWords();
 document.getElementById('rateOut').textContent=Number(rate.value).toFixed(2).replace(/0$/,'')+'%';
 document.getElementById('yearsOut').textContent=years.value+' years';
 document.getElementById('emiOut').textContent=fmt(emi);
