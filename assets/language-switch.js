@@ -71,13 +71,14 @@
  function apply(){
   observer.disconnect();
   try{
+   window.JoypurUpdates?.apply(language,translated);
    applyCMS();
    window.JoypurServices?.apply(language,translated);
    applyCategories();
    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
    let node;
    while((node=walker.nextNode())){
-    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text]'))continue;
+    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text], [data-update-text]'))continue;
     let state=textState.get(node);
     if(!state||node.nodeValue!==state.last)state={source:node.nodeValue,last:node.nodeValue};
     const next=language==='hi'?translated(state.source):state.source;
@@ -114,7 +115,7 @@
    }catch{loading=null;if(request===choice)status.textContent='हिन्दी लोड नहीं हुई। कृपया फिर कोशिश करें। / Please try again.';return;}
   }
   if(request!==choice)return;
-  await Promise.all([loadCategories(),window.JoypurServices?.load(),next==='hi'?loadCMS():Promise.resolve()]);
+  await Promise.all([loadCategories(),window.JoypurServices?.load(),window.JoypurUpdates?.load(),next==='hi'?loadCMS():Promise.resolve()]);
   if(request!==choice)return;
   language=next;status.hidden=true;apply();
   if(persist)try{localStorage.setItem(key,next);}catch{}

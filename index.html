@@ -1106,7 +1106,7 @@ header.nav .brand img { display:block; }
 .service-card:focus-within { outline:3px solid var(--orange); outline-offset:4px; }
 .service-card a:focus-visible { outline:0; }
 @media(max-width:760px) { .ticker .container { justify-content:flex-start; gap:8px 18px; } .ticker .ticker-link { font-size:11px; } .service-card[id] { scroll-margin-top:90px; } }
-</style><link rel="stylesheet" href="assets/language-switch.css"><script defer src="assets/rich-text.js"></script><script defer src="assets/service-view.js"></script><script defer src="assets/language-switch.js"></script>
+</style><link rel="stylesheet" href="assets/language-switch.css"><script defer src="assets/rich-text.js"></script><script defer src="assets/service-view.js"></script><script defer src="assets/updates-view.js"></script><script defer src="assets/language-switch.js"></script>
 </head>
 <body>
 <div class="topbar">
@@ -1970,59 +1970,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
   loadPublicContent();
 })();
 </script>
-<script>
-/* Latest Updates: read-only public enhancement; empty/error state stays hidden. */
-(() => {
-  'use strict';
-  const section = document.getElementById('latest-updates');
-  const grid = document.getElementById('latest-updates-grid');
-  if (!section || !grid) return;
-  const text = value => typeof value === 'string' ? value.trim() : '';
-  async function loadLatestUpdates() {
-    try {
-      const response = await fetch('/api/public-updates', {
-        headers: { Accept: 'application/json' }, cache: 'no-store'
-      });
-      if (!response.ok || !(response.headers.get('content-type') || '').includes('application/json')) return;
-      const data = await response.json();
-      if (!data || !data.success || !Array.isArray(data.updates)) return;
-      const cards = [];
-      for (const item of data.updates.slice(0, 3)) {
-        if (!item || !text(item.title)) continue;
-        const card = document.createElement('article');
-        card.className = 'latest-update-card';
-        const category = document.createElement('small');
-        category.textContent = text(item.category).replace(/[_-]/g, ' ') || 'Update';
-        const title = document.createElement('h3');
-        title.textContent = text(item.title);
-        card.append(category, title);
-        if (text(item.summary)) {
-          const summary = document.createElement('p');
-          summary.textContent = text(item.summary);
-          card.append(summary);
-        }
-        if (text(item.published_at)) {
-          const parsed = new Date(text(item.published_at).replace(' ', 'T') + (/[zZ]|[+-]\d\d:\d\d$/.test(text(item.published_at)) ? '' : 'Z'));
-          if (!Number.isNaN(parsed.getTime())) {
-            const date = document.createElement('time');
-            date.dateTime = parsed.toISOString();
-            date.textContent = parsed.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-            card.append(date);
-          }
-        }
-        cards.push(card);
-      }
-      if (cards.length) {
-        grid.replaceChildren(...cards);
-        section.hidden = false;
-      }
-    } catch (error) {
-      // The rest of the website remains fully functional.
-    }
-  }
-  loadLatestUpdates();
-})();
-</script>
+
 
 <!-- Newsletter Preview: Turnstile and subscription -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
