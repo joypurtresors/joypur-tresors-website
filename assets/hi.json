@@ -539,5 +539,17 @@
   "Financial Solutions. Information on this site is general and does not guarantee loan approval or terms.": "वित्तीय समाधान। इस वेबसाइट की जानकारी सामान्य है; यह ऋण स्वीकृति या शर्तों की गारंटी नहीं है।",
   "This service is currently unavailable. Please choose another service.": "यह सेवा अभी उपलब्ध नहीं है। कृपया दूसरी सेवा चुनें।",
   "Unable to save enquiry right now. Please try again.": "पूछताछ अभी सेव नहीं हो सकी। कृपया फिर कोशिश करें।",
-  "This service is currently unavailable. Please return to All solutions or contact us.": "यह सेवा अभी उपलब्ध नहीं है। कृपया सभी समाधान पर लौटें या हमसे संपर्क करें।"
+  "This service is currently unavailable. Please return to All solutions or contact us.": "यह सेवा अभी उपलब्ध नहीं है। कृपया सभी समाधान पर लौटें या हमसे संपर्क करें।",
+  "Loan service": "ऋण सेवा",
+  "Loan Service | Joypur Tresors": "ऋण सेवा | जॉयपुर ट्रेज़र्स",
+  "Service illustration": "सेवा का चित्र",
+  "Breadcrumb": "पृष्ठ का मार्ग",
+  "Loan services are temporarily unavailable. Please reload or contact us.": "ऋण सेवाएँ अभी उपलब्ध नहीं हैं। कृपया पृष्ठ फिर खोलें या हमसे संपर्क करें।",
+  "Invalid or expired unsubscribe link": "सदस्यता बंद करने का लिंक अमान्य है या उसकी अवधि समाप्त हो गई है",
+  "Your newsletter subscription is confirmed.": "आपकी न्यूज़लेटर सदस्यता की पुष्टि हो गई है।",
+  "You have successfully unsubscribed.": "आपकी न्यूज़लेटर सदस्यता सफलतापूर्वक बंद हो गई है।",
+  "Forbidden origin": "इस पृष्ठ से अनुरोध की अनुमति नहीं है।",
+  "JSON required": "अनुरोध का प्रारूप सही नहीं है।",
+  "Request too large": "अनुरोध बहुत बड़ा है।",
+  "Invalid request": "अनुरोध मान्य नहीं है।"
 }
