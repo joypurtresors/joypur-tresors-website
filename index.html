@@ -1106,9 +1106,11 @@ header.nav .brand img { display:block; }
 .service-card:focus-within { outline:3px solid var(--orange); outline-offset:4px; }
 .service-card a:focus-visible { outline:0; }
 @media(max-width:760px) { .ticker .container { justify-content:flex-start; gap:8px 18px; } .ticker .ticker-link { font-size:11px; } .service-card[id] { scroll-margin-top:90px; } }
+.skip-main{position:fixed;top:8px;left:8px;z-index:10000;transform:translateY(-160%);background:#fffaf3;color:#171514;padding:12px 18px;border-radius:6px}.skip-main:focus{transform:none}
 </style><link rel="stylesheet" href="assets/language-switch.css"><script defer src="assets/rich-text.js"></script><script defer src="assets/enquiry-selection.js"></script><script defer src="assets/service-view.js"></script><script defer src="assets/updates-view.js"></script><script defer src="assets/business-profile.js"></script><script defer src="assets/media-view.js"></script><script defer src="assets/language-switch.js"></script>
 </head>
 <body>
+<a class="skip-main" href="#main">Skip to content</a>
 <div class="topbar">
 <div class="container">
 <span>
@@ -1138,7 +1140,7 @@ header.nav .brand img { display:block; }
 <a class="btn btn-primary" href="#contact">
      Get in touch ↗
     </a>
-<button aria-expanded="false" aria-label="Open menu" class="menu-btn" id="menuToggle">
+<button aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu" class="menu-btn" id="menuToggle">
      ☰
     </button>
 </div>
@@ -1151,7 +1153,7 @@ header.nav .brand img { display:block; }
 
 <a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="#contact">Contact</a></nav>
 </header>
-<main>
+<main id="main" tabindex="-1">
 <section class="hero" id="home">
 <div class="container hero-layout">
 <div class="hero-copy">
@@ -1790,6 +1792,8 @@ menuToggle.setAttribute('aria-expanded','false');
 menuToggle.setAttribute('aria-label',document.documentElement.lang==='hi'?'मेन्यू खोलें':'Open menu');
 menuToggle.textContent='☰'}));
 
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileNav.classList.contains('open')){menuToggle.click();menuToggle.focus();}});
+
 const amount=document.getElementById('loanAmount'),rate=document.getElementById('loanRate'),years=document.getElementById('loanYears');
 const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
 function updateEmi(){const p=Number(amount.value),r=Number(rate.value)/1200,n=Number(years.value)*12;
@@ -1824,6 +1828,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
     event.preventDefault();
     navigate(id);
     history.replaceState(null, '', '#' + id);
+    if(id==='main')document.getElementById(id).focus({preventScroll:true});
   }));
   function updateActive() {
     const offset = (nav?.getBoundingClientRect().height || 86) + 90;
