@@ -1809,7 +1809,7 @@ function amountInWords(value,hi){
  function spell(n){if(n<100)return hi?hindi[n]:n<20?en[n]:tens[Math.floor(n/10)]+(n%10?' '+en[n%10]:'');for(const [unit,english,local]of [[10000000,'crore','करोड़'],[100000,'lakh','लाख'],[1000,'thousand','हज़ार'],[100,'hundred','सौ']])if(n>=unit)return spell(Math.floor(n/unit))+' '+(hi?local:english)+(n%unit?' '+spell(n%unit):'');}
  const text=spell(Math.round(value));return hi?text+' रुपये':text.charAt(0).toUpperCase()+text.slice(1)+' rupees';
 }
-function updateAmountWords(){document.getElementById('amountWords').textContent=amountInWords(Number(amount.value),document.documentElement.lang==='hi');}
+function updateAmountWords(){const node=document.getElementById('amountWords'),text=amountInWords(Number(amount.value),document.documentElement.lang==='hi');if(node.textContent!==text)node.textContent=text;}
 new MutationObserver(updateAmountWords).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 
 function updateEmi(){const p=Number(amount.value),r=Number(rate.value)/1200,n=Number(years.value)*12;
