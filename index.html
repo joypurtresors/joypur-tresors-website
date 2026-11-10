@@ -1783,9 +1783,11 @@ header.nav .brand img { display:block; }
    const menuToggle=document.getElementById('menuToggle'),mobileNav=document.getElementById('mobileNav');
 menuToggle.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');
 menuToggle.setAttribute('aria-expanded',String(open));
+menuToggle.setAttribute('aria-label',document.documentElement.lang==='hi'?(open?'मेन्यू बंद करें':'मेन्यू खोलें'):(open?'Close menu':'Open menu'));
 menuToggle.textContent=open?'×':'☰'});
 mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('open');
 menuToggle.setAttribute('aria-expanded','false');
+menuToggle.setAttribute('aria-label',document.documentElement.lang==='hi'?'मेन्यू खोलें':'Open menu');
 menuToggle.textContent='☰'}));
 
 const amount=document.getElementById('loanAmount'),rate=document.getElementById('loanRate'),years=document.getElementById('loanYears');

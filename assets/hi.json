@@ -551,5 +551,6 @@
   "Forbidden origin": "इस पृष्ठ से अनुरोध की अनुमति नहीं है।",
   "JSON required": "अनुरोध का प्रारूप सही नहीं है।",
   "Request too large": "अनुरोध बहुत बड़ा है।",
-  "Invalid request": "अनुरोध मान्य नहीं है।"
+  "Invalid request": "अनुरोध मान्य नहीं है।",
+  "Close menu": "मेन्यू बंद करें"
 }
