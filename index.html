@@ -1107,6 +1107,7 @@ header.nav .brand img { display:block; }
 .service-card a:focus-visible { outline:0; }
 @media(max-width:760px) { .ticker .container { justify-content:flex-start; gap:8px 18px; } .ticker .ticker-link { font-size:11px; } .service-card[id] { scroll-margin-top:90px; } }
 .skip-main{position:fixed;top:8px;left:8px;z-index:10000;transform:translateY(-160%);background:#fffaf3;color:#171514;padding:12px 18px;border-radius:6px}.skip-main:focus{transform:none}
+.calc-manual{display:block;width:100%;min-width:0;padding:12px 14px;border:1px solid #bca78e;border-radius:8px;background:#fff;color:#171514;font:inherit;font-size:18px;font-weight:600;margin:0 0 8px}.calc-manual:invalid{border-color:#ad412d}
 </style><link rel="stylesheet" href="assets/language-switch.css"><script defer src="assets/rich-text.js"></script><script defer src="assets/enquiry-selection.js"></script><script defer src="assets/service-view.js"></script><script defer src="assets/updates-view.js"></script><script defer src="assets/business-profile.js"></script><script defer src="assets/media-view.js"></script><script defer src="assets/language-switch.js"></script>
 </head>
 <body>
@@ -1389,6 +1390,7 @@ header.nav .brand img { display:block; }
          ₹30,00,000
         </output>
 </label>
+<input class="calc-manual" id="loanAmountEntry" aria-label="Loan amount" inputmode="numeric" required max="200000000" min="100000" step="50000" type="number" value="3000000"/>
 <input id="loanAmount" max="200000000" min="100000" step="50000" type="range" value="3000000"/>
 <label for="loanRate">
         Annual interest rate
@@ -1396,6 +1398,7 @@ header.nav .brand img { display:block; }
          9.0%
         </output>
 </label>
+<input class="calc-manual" id="loanRateEntry" aria-label="Annual interest rate" inputmode="decimal" required max="20" min="1" step="0.1" type="number" value="9"/>
 <input id="loanRate" max="20" min="1" step="0.1" type="range" value="9"/>
 <label for="loanYears">
         Loan tenure
@@ -1403,6 +1406,7 @@ header.nav .brand img { display:block; }
          20 years
         </output>
 </label>
+<input class="calc-manual" id="loanYearsEntry" aria-label="Loan tenure" inputmode="numeric" required max="30" min="1" step="1" type="number" value="20"/>
 <input id="loanYears" max="30" min="1" step="1" type="range" value="20"/>
 <p style="font-size:12px;color:var(--muted);margin:0">
         Illustrative calculation only. Actual lender terms may vary.
@@ -1808,6 +1812,12 @@ document.getElementById('interestOut').textContent=fmt(total-p);
 document.getElementById('totalOut').textContent=fmt(total);
 document.getElementById('principalBar').style.width=(100*p/total).toFixed(2)+'%'}[amount,rate,years].forEach(el=>el.addEventListener('input',updateEmi));
 updateEmi();
+for(const slider of [amount,rate,years]){
+ const entry=document.getElementById(slider.id+'Entry');
+ slider.addEventListener('input',()=>{entry.value=slider.value;});
+ entry.addEventListener('input',()=>{if(!entry.validity.valid)return;slider.value=entry.value;updateEmi();});
+ entry.addEventListener('change',()=>{if(!entry.validity.valid)entry.reportValidity();});
+}
 document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 <script>/* Consistent accessible anchor navigation and active section. */
