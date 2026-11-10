@@ -1,7 +1,5 @@
-(() => {
-  'use strict';
-  const service = new URLSearchParams(window.location.search).get('service');
-  const select = document.getElementById('loanType');
-  if (!select || !['Home Loan','Business Loan','Mortgage Loan','OD / CC','BG / LRD','Personal Loan','Auto Loan'].includes(service)) return;
-  if ([...select.options].some(option => option.value === service)) select.value = service;
-})();
+(()=>{'use strict';const select=document.getElementById('loanType');if(!select)return;const params=new URLSearchParams(window.location.search);let chosen=false;const known={home_loans:'Home Loan',business_loans:'Business Loan',mortgage_loans:'Mortgage Loan',od_cc:'OD / CC',bg_lrd:'BG / LRD',personal_auto:'Personal Loan'};
+ function apply(services,language,translate){for(const option of select.options){const id=Object.keys(known).find(id=>known[id]===option.value)||(option.value==='Auto Loan'?'personal_auto':null);if(id){option.dataset.serviceId=id;option.disabled=services[id]?.state!=='enabled';option.hidden=option.disabled;if(option.selected&&option.disabled)select.value='';}}
+  for(const [id,s] of Object.entries(services)){if(!s.custom)continue;let option=[...select.options].find(o=>o.value===id);if(!option&&s.state==='enabled'){option=document.createElement('option');option.value=id;option.dataset.serviceId=id;option.dataset.serviceText='';select.append(option);}if(option){option.disabled=s.state!=='enabled';option.hidden=option.disabled;const label=language==='hi'?(s.titleHi||translate(s.titleEn)):s.titleEn;if(label&&option.textContent!==label)option.textContent=label;if(option.selected&&option.disabled)select.value='';}}
+  if(!chosen){const id=params.get('serviceId'),legacy=params.get('service');const option=[...select.options].find(o=>!o.disabled&&(id?o.dataset.serviceId===id&&(!legacy||o.value===legacy):legacy&&o.value===legacy));if(option)select.value=option.value;chosen=true;}
+ }window.JoypurEnquirySelection={apply};})();
