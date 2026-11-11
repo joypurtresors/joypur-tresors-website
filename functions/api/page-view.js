@@ -1,4 +1,4 @@
-const paths=new Set(['/','/home-loans','/business-loans','/mortgage-loans','/working-capital','/bg-lrd','/personal-auto','/service','/privacy','/disclaimer']);
+const paths=new Set(['/','/home-loans','/business-loans','/mortgage-loans','/working-capital','/bg-lrd','/personal-auto','/service','/privacy','/disclaimer','/blog','/blog/article']);
 const reply=status=>new Response(null,{status,headers:{'Cache-Control':'no-store'}});
 export async function onRequestPost({request,env}){
  const url=new URL(request.url);if(request.headers.get('Origin')!==url.origin)return reply(403);

@@ -1152,7 +1152,7 @@ header.nav .brand img { display:block; }
 
 
 
-<a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="#contact">Contact</a></nav>
+<a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="/blog">Blog</a><a href="#contact">Contact</a></nav>
 <a class="btn btn-primary" href="#contact">
      Get in touch ↗
     </a>
@@ -1167,7 +1167,7 @@ header.nav .brand img { display:block; }
 
 
 
-<a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="#contact">Contact</a></nav>
+<a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Solutions</a><a href="#calculator">EMI Calculator</a><a href="#insights">Insights</a><a href="/blog">Blog</a><a href="#contact">Contact</a></nav>
 </header>
 <main id="main" tabindex="-1">
 <section class="hero" id="home">
@@ -1495,7 +1495,7 @@ header.nav .brand img { display:block; }
        Helpful educational pointers while you consider your next financial step. These are general insights, not live financial news.
       </p>
 </div>
-<div class="insight-grid">
+<p><a class="btn" href="/blog">Read the Joypur Blog ↗</a></p><div class="insight-grid">
 <article class="insight">
 <small>
         HOME FINANCE
@@ -1816,7 +1816,6 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileNav.c
 
 const amount=document.getElementById('loanAmount'),rate=document.getElementById('loanRate'),years=document.getElementById('loanYears');
 const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
-
 function amountInWords(value,hi){
  const en=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
  const tens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
@@ -1826,7 +1825,6 @@ function amountInWords(value,hi){
 }
 function updateAmountWords(){const node=document.getElementById('amountWords'),text=amountInWords(Number(amount.value),document.documentElement.lang==='hi');if(node.textContent!==text)node.textContent=text;}
 new MutationObserver(updateAmountWords).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-
 function updateEmi(){const p=Number(amount.value),r=Number(rate.value)/1200,n=Number(years.value)*12;
 const emi=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
 const total=emi*n;

@@ -72,6 +72,7 @@
   observer.disconnect();
   try{
    window.JoypurLegal?.apply(language);
+   window.JoypurBlog?.apply(language);
    window.JoypurUpdates?.apply(language,translated);
    applyCMS();
    window.JoypurServices?.apply(language,translated);
@@ -81,7 +82,7 @@
    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
    let node;
    while((node=walker.nextNode())){
-    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text], [data-update-text], [data-business-text], [data-business-name], [data-legal-text]'))continue;
+    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text], [data-update-text], [data-business-text], [data-business-name], [data-legal-text], [data-blog-text], [data-blog-date]'))continue;
     let state=textState.get(node);
     if(!state||node.nodeValue!==state.last)state={source:node.nodeValue,last:node.nodeValue};
     const next=language==='hi'?translated(state.source):state.source;
@@ -89,7 +90,7 @@
     state.last=next;textState.set(node,state);
    }
    for(const element of document.querySelectorAll('[placeholder],[aria-label],[alt],title')){
-    if(element.closest('[data-language-ui],iframe')||element.hasAttribute('data-media-slot'))continue;
+    if(element.closest('[data-language-ui],iframe')||element.hasAttribute('data-media-slot')||element.hasAttribute('data-blog-alt-en'))continue;
     let states=attrState.get(element);if(!states){states={};attrState.set(element,states);}
     for(const attr of ['placeholder','aria-label','alt']){
      if(!element.hasAttribute(attr))continue;
