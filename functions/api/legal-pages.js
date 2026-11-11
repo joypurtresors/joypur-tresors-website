@@ -1,0 +1,2 @@
+import {readLegal} from '../lib/legal-pages.js';
+export async function onRequestGet({env}){const headers={'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};try{return new Response(JSON.stringify({success:true,pages:await readLegal(env.DB)}),{headers});}catch{return new Response(JSON.stringify({error:'Policy pages unavailable'}),{status:503,headers});}}

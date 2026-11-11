@@ -552,5 +552,7 @@
   "JSON required": "अनुरोध का प्रारूप सही नहीं है।",
   "Request too large": "अनुरोध बहुत बड़ा है।",
   "Invalid request": "अनुरोध मान्य नहीं है।",
-  "Close menu": "मेन्यू बंद करें"
+  "Close menu": "मेन्यू बंद करें",
+  "Privacy Policy": "गोपनीयता नीति",
+  "Disclaimer": "अस्वीकरण"
 }
