@@ -1,0 +1,1 @@
+import {read,active} from '../lib/campaigns.js';export async function onRequestGet(c){try{const {value}=await read(c.env.DB,'greeting');return Response.json({success:true,greeting:active(value)?value:null},{headers:{'Cache-Control':'no-store'}});}catch{return Response.json({success:false,greeting:null},{status:503,headers:{'Cache-Control':'no-store'}});}}
