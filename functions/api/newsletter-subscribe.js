@@ -1,3 +1,4 @@
+import {begin as beginEmail,finish as finishEmail} from '../lib/email-notifications.js';
 
 const MAX_ATTEMPTS = 3;
 const COOLDOWN_MINUTES = 15;
@@ -255,6 +256,7 @@ export async function onRequestPost({ request, env }) {
       "If you did not subscribe, ignore this email."
     ].join("\n");
 
+    const notification=await beginEmail(env.DB,'newsletter_confirmation',subscriber.id);
     let sendResponse;
 
     try {
@@ -277,12 +279,14 @@ export async function onRequestPost({ request, env }) {
         }
       );
     } catch {
+      await finishEmail(env.DB,notification,'uncertain');
       // Network result is uncertain: do not immediately retry.
       console.error("Newsletter provider outcome uncertain");
 
       return responseJSON(genericResponse);
     }
 
+    await finishEmail(env.DB,notification,sendResponse.ok?'accepted':'rejected',sendResponse.status);
     if (!sendResponse.ok) {
       // Keep the attempt and cooldown reservation.
       // This prevents repeated abuse when the provider rejects.
@@ -305,3 +309,4 @@ export async function onRequestPost({ request, env }) {
     }, 503);
   }
 }
+
