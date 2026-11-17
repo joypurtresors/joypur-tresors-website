@@ -7,4 +7,8 @@
 .section:has(+ [data-service-detail]:not([hidden]))>:last-child{margin-bottom:0}
 [data-service-detail].section{padding-top:0;padding-bottom:32px}
 [data-service-detail]:not([hidden])+.product-categories{padding-top:32px}
-
+/* Discussion paragraphs have no automatic list marker; checklist items retain theirs. */
+.category-content>ul:has(>[data-category-field*=".point_"]){list-style:none;padding-left:0}
+[data-category-field*=".point_"]{list-style:none}
+[data-checklist-excluded="true"],.profile-checklist[data-profile-enabled="false"]{display:none!important}
+.rich-align-left,.rich-align-center,.rich-align-right{display:block}.rich-align-left{text-align:left}.rich-align-center{text-align:center}.rich-align-right{text-align:right}

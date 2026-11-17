@@ -6,7 +6,7 @@
     if (!select) continue;
     const update = () => {
       const value = ['salaried','business','professional'].includes(select.value) ? select.value : '';
-      for (const panel of panels) panel.hidden = panel.dataset.profile !== value;
+      for (const panel of panels) panel.hidden = panel.dataset.profileEnabled === 'false' || panel.dataset.profile !== value;
     };
     select.addEventListener('change', update);
     update();
