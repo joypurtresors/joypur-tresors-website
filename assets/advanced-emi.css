@@ -9,3 +9,6 @@
 
 @media print{html:not([data-calculator-verified=true]) body>*{display:none!important}html:not([data-calculator-verified=true]) body:before{display:block!important;content:'Joypur Tresors - Confirm your email in the calculator before printing or exporting.';font:16px Arial;padding:30px}}
 
+
+#share-status{overflow-wrap:anywhere}
+
