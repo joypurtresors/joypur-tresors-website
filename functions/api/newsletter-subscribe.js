@@ -168,6 +168,12 @@ export async function onRequestPost({ request, env }) {
     }, 403);
   }
 
+  return requestNewsletterConfirmation({env,url},email);
+}
+
+// Internal server helper. Public requests still pass the origin, consent and Turnstile checks above.
+export async function requestNewsletterConfirmation({env,url},email) {
+  if(!env.DB||!env.RESEND_API_KEY||!env.NEWSLETTER_FROM_EMAIL||typeof email!=='string'||!validEmail(email))return responseJSON({success:false,error:'Newsletter unavailable'},503);
   try {
     // Existing confirmed/unsubscribed users remain unchanged.
     await env.DB.prepare(
