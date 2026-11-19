@@ -71,6 +71,7 @@
  function apply(){
   observer.disconnect();
   try{
+   window.JoypurHomepage?.apply(language);
    window.JoypurLegal?.apply(language);
    window.JoypurBlog?.apply(language);
    window.JoypurUpdates?.apply(language,translated);
@@ -82,7 +83,7 @@
    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
    let node;
    while((node=walker.nextNode())){
-    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text], [data-update-text], [data-business-text], [data-business-name], [data-legal-text], [data-blog-text], [data-blog-date]'))continue;
+    if(!node.parentElement||node.parentElement.closest(selector+', [data-category-field], [data-category-title], [data-service-text], [data-update-text], [data-business-text], [data-business-name], [data-legal-text], [data-blog-text], [data-blog-date], [data-homepage-copy], [data-homepage-dynamic]'))continue;
     let state=textState.get(node);
     if(!state||node.nodeValue!==state.last)state={source:node.nodeValue,last:node.nodeValue};
     const next=language==='hi'?translated(state.source):state.source;
@@ -90,7 +91,7 @@
     state.last=next;textState.set(node,state);
    }
    for(const element of document.querySelectorAll('[placeholder],[aria-label],[alt],title')){
-    if(element.closest('[data-language-ui],iframe')||element.hasAttribute('data-media-slot')||element.hasAttribute('data-blog-alt-en'))continue;
+    if(element.closest('[data-language-ui],iframe,[data-homepage-dynamic]')||element.hasAttribute('data-media-slot')||element.hasAttribute('data-blog-alt-en'))continue;
     let states=attrState.get(element);if(!states){states={};attrState.set(element,states);}
     for(const attr of ['placeholder','aria-label','alt']){
      if(!element.hasAttribute(attr))continue;
@@ -121,7 +122,7 @@
    }catch{loading=null;if(request===choice)status.textContent='हिन्दी लोड नहीं हुई। कृपया फिर कोशिश करें। / Please try again.';return;}
   }
   if(request!==choice)return;
-  await Promise.all([loadCategories(),window.JoypurServices?.load(),window.JoypurUpdates?.load(),window.JoypurBusiness?.load(),window.JoypurLegal?.load(),window.JoypurMedia?.load(),next==='hi'?loadCMS():Promise.resolve()]);
+  await Promise.all([window.JoypurHomepage?.load(),loadCategories(),window.JoypurServices?.load(),window.JoypurUpdates?.load(),window.JoypurBusiness?.load(),window.JoypurLegal?.load(),window.JoypurMedia?.load(),next==='hi'?loadCMS():Promise.resolve()]);
   if(request!==choice)return;
   language=next;status.hidden=true;apply();
   if(persist)try{localStorage.setItem(key,next);}catch{}

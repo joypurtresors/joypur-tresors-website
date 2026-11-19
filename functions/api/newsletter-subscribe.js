@@ -1,3 +1,4 @@
+import {newsletterConfirmationEmail} from '../lib/newsletter-confirmation-email.js';
 import {begin as beginEmail,finish as finishEmail} from '../lib/email-notifications.js';
 
 const MAX_ATTEMPTS = 3;
@@ -252,15 +253,7 @@ export async function requestNewsletterConfirmation({env,url},email) {
     const confirmURL =
       `${url.origin}/newsletter-confirm.html?token=${token}`;
 
-    const emailText = [
-      "Please confirm your Joypur Tresors newsletter subscription.",
-      "",
-      "Click the link below to confirm:",
-      confirmURL,
-      "",
-      "This link expires in 24 hours.",
-      "If you did not subscribe, ignore this email."
-    ].join("\n");
+    const confirmationEmail = newsletterConfirmationEmail(confirmURL);
 
     const notification=await beginEmail(env.DB,'newsletter_confirmation',subscriber.id);
     let sendResponse;
@@ -280,7 +273,8 @@ export async function requestNewsletterConfirmation({env,url},email) {
             to: [email],
             subject:
               "Confirm your Joypur Tresors newsletter subscription",
-            text: emailText
+            text: confirmationEmail.text,
+            html: confirmationEmail.html
           })
         }
       );
