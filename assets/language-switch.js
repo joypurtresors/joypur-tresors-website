@@ -127,7 +127,7 @@
   language=next;status.hidden=true;apply();
   if(persist)try{localStorage.setItem(key,next);}catch{}
  }
- let saved='en';try{saved=localStorage.getItem(key)||'en';}catch{}
+ let saved=document.documentElement.dataset.primaryLanguage==='hi'?'hi':'en';try{saved=localStorage.getItem(key)||saved;}catch{}
  choose(saved==='hi'?'hi':'en',false);
  window.addEventListener('storage',event=>{if(event.key===key)choose(event.newValue==='hi'?'hi':'en',false);});
 })();
